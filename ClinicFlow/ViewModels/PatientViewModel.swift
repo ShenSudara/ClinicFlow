@@ -1,0 +1,152 @@
+//
+//  PatientViewModel.swift
+//  ClinicFlow
+//
+//  Created by Ashen Sudaraka on 2026-02-28.
+//
+
+import Foundation
+import Combine
+
+class PatientViewModel: ObservableObject {
+    @Published var mobileNo: String = ""
+    @Published var otpCode: String = ""
+    @Published var patient: Patient = Patient(mobileNo: "")
+
+    
+    @Published var isLoading: Bool = false
+    @Published var errorMessage: String? = nil
+    @Published var isOTPSent: Bool = false
+    
+    @Published var patients: [Patient] = []
+    
+    init(mobileNo: String = "") {
+        self.mobileNo = mobileNo
+    }
+    
+    func sendOTP() {
+        guard !mobileNo.isEmpty else {
+            errorMessage = "Mobile number cannot be empty"
+            return
+        }
+        
+        isLoading = true
+        errorMessage = nil
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.isLoading = false
+            self.isOTPSent = true
+            self.otpCode = String(format: "%04d", Int.random(in: 1000...9999))
+            print("OTP sent to \(self.mobileNo): \(self.otpCode)")
+        }
+    }
+    
+    func verifyOTP() {
+        guard isOTPSent else {
+            errorMessage = "Please send OTP first"
+            return
+        }
+        guard otpCode == otpCode else {
+            errorMessage = "Invalid OTP"
+            return
+        }
+        
+        isLoading = true
+        errorMessage = nil
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.isLoading = false
+            if let index = self.patients.firstIndex(where: { $0.mobileNo ==  self.mobileNo }) {
+                self.patient = self.patients[index]
+            }else{
+                self.addPatient()
+            }
+        }
+    }
+    
+    func register() {
+        guard !patient.mobileNo.isEmpty else {
+            errorMessage = "Mobile number cannot be empty"
+            return
+        }
+        
+        //name
+        guard let name = patient.name, !name.trimmingCharacters(in: .whitespaces).isEmpty else {
+            errorMessage = "Name cannot be empty"
+            return
+        }
+        //nic
+        guard let nic = patient.nicNumber, !nic.trimmingCharacters(in: .whitespaces).isEmpty else {
+            errorMessage = "NIC cannot be empty"
+            return
+        }
+        
+        //dob
+        guard let dob = patient.dob else {
+            errorMessage = "Date of birth cannot be empty"
+            return
+        }
+        guard dob <= Date() else {
+            errorMessage = "Date of birth cannot be in the future"
+            return
+        }
+        
+        //email
+        guard let email = patient.email, !email.trimmingCharacters(in: .whitespaces).isEmpty else {
+            errorMessage = "Email cannot be empty"
+            return
+        }
+        guard email.contains("@") else {
+            errorMessage = "Please enter a valid email"
+            return
+        }
+        
+        //address
+        guard let address = patient.address, !address.trimmingCharacters(in: .whitespaces).isEmpty else {
+            errorMessage = "Address cannot be empty"
+            return
+        }
+        
+        if let index = patients.firstIndex(where: { $0.mobileNo == mobileNo }) {
+            patients[index] = patient
+            reset()
+        } else {
+            errorMessage = "Patient not found. Please complete OTP verification first."
+        }
+    }
+    
+    func signIn(mobileNo: String) {
+        guard !mobileNo.trimmingCharacters(in: .whitespaces).isEmpty else {
+            errorMessage = "Mobile number cannot be empty"
+            return
+        }
+        
+        if let existingPatient = patients.first(where: { $0.mobileNo == mobileNo }) {
+            sendOTP()
+            errorMessage = nil
+        } else {
+            errorMessage = "Mobile number not found. Please register first."
+        }
+    }
+    
+    func signOut(){
+        reset()
+    }
+    
+    
+    //helpers
+    private func addPatient() {
+        let newPatient = Patient(mobileNo: mobileNo)
+        patients.append(newPatient)
+    }
+    
+    private func reset(){
+        mobileNo = ""
+        otpCode = ""
+        patient = Patient(mobileNo: "")
+        isLoading = false
+        errorMessage = nil
+        isOTPSent = false
+    }
+    
+}
