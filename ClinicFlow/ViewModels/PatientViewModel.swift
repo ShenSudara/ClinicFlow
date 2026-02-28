@@ -121,7 +121,7 @@ class PatientViewModel: ObservableObject {
             return
         }
         
-        if let existingPatient = patients.first(where: { $0.mobileNo == mobileNo }) {
+        if patients.first(where: { $0.mobileNo == mobileNo }) != nil {
             sendOTP()
             errorMessage = nil
         } else {
