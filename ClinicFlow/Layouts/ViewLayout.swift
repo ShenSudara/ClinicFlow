@@ -11,7 +11,6 @@ extension View {
     func commonPadding() -> some View {
         self
             .padding(.horizontal, 20)
-            .padding(.top, 16)
     }
     
     func commonLayout() -> some View {
@@ -24,6 +23,5 @@ extension View {
     
     func commonBackground() -> some View {
         self.background(Color("Background"))
-
     }
 }

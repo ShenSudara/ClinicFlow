@@ -9,8 +9,13 @@ import Foundation
 import Combine
 
 class PatientViewModel: ObservableObject {
+    @Published var navigateToVerify = false
+    @Published var navigateToHome = false
+    @Published var navigateToRegistration = false
+    
     @Published var mobileNo: String = ""
     @Published var otpCode: String = ""
+    @Published var inputOTPCode: String = ""
     @Published var patient: Patient = Patient(mobileNo: "")
 
     
@@ -18,7 +23,9 @@ class PatientViewModel: ObservableObject {
     @Published var errorMessage: String? = nil
     @Published var isOTPSent: Bool = false
     
-    @Published var patients: [Patient] = []
+    @Published var patients: [Patient] = [
+        Patient(mobileNo: "0123456789")
+    ]
     
     init(mobileNo: String = "") {
         self.mobileNo = mobileNo
@@ -32,6 +39,7 @@ class PatientViewModel: ObservableObject {
         
         isLoading = true
         errorMessage = nil
+        navigateToVerify = true
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.isLoading = false
@@ -46,7 +54,7 @@ class PatientViewModel: ObservableObject {
             errorMessage = "Please send OTP first"
             return
         }
-        guard otpCode == otpCode else {
+        guard otpCode == inputOTPCode else {
             errorMessage = "Invalid OTP"
             return
         }
@@ -58,8 +66,10 @@ class PatientViewModel: ObservableObject {
             self.isLoading = false
             if let index = self.patients.firstIndex(where: { $0.mobileNo ==  self.mobileNo }) {
                 self.patient = self.patients[index]
+                self.navigateToHome = true
             }else{
-                self.addPatient()
+                self.patient = self.addPatient()
+                self.navigateToRegistration = true
             }
         }
     }
@@ -135,9 +145,10 @@ class PatientViewModel: ObservableObject {
     
     
     //helpers
-    private func addPatient() {
+    private func addPatient()->Patient {
         let newPatient = Patient(mobileNo: mobileNo)
         patients.append(newPatient)
+        return newPatient
     }
     
     private func reset(){

@@ -1,16 +1,16 @@
 //
-//  SignUpView.swift
+//  SignInView.swift
 //  ClinicFlow
 //
-//  Created by Ashen Sudaraka on 2026-02-28.
+//  Created by Ashen Sudaraka on 2026-03-01.
 //
 
 import SwiftUI
 import AuthenticationServices
 
-struct SignUpView: View {
+struct SignInView: View {
     @EnvironmentObject var patientViewModel: PatientViewModel
-    
+
     var body: some View {
         VStack(alignment: .trailing) {
             VStack{
@@ -21,12 +21,12 @@ struct SignUpView: View {
                         .frame(width: 75)
                 }.frame(maxWidth: .infinity)
                 HStack{
-                    Text("Sign Up").headerColor()
+                    Text("Sign In").headerColor()
                         .font(.system(size: 36, weight: .bold))
                         .padding(.bottom, 0.5)
                 }
                 HStack{
-                    Text("Enter your mobile number to get started.")
+                    Text("Enter your mobile number to sign in to your account.")
                         .subHeader2Color()
                         .font(.system(size: 20, weight: .regular))
                         .multilineTextAlignment(.center)
@@ -41,11 +41,12 @@ struct SignUpView: View {
                 HStack{
                     Button("Continue"){
                         patientViewModel.sendOTP()
+                        print("Test")
                     }
+                    .defaultButton()
                     .navigationDestination(isPresented: $patientViewModel.navigateToVerify){
                         VerificationView()
                     }
-                    .defaultButton()
                     
                 }
                 HStack{
@@ -53,7 +54,7 @@ struct SignUpView: View {
                         .fill(Color("Icon").opacity(0.5))
                         .frame(height: 1)
                     
-                    Text("Or Sign Up with")
+                    Text("Or Sign In with")
                         .subHeader2Color()
                         .font(.system(size: 14, weight: .regular))
                         .fixedSize()
@@ -64,7 +65,7 @@ struct SignUpView: View {
                 }.padding(.vertical, 35)
                 
                 HStack{
-                    SignInWithAppleButton(.signUp) { request in
+                    SignInWithAppleButton(.signIn) { request in
                         print("Apple Sign Up")
                     } onCompletion: { result in
                         print(result)
@@ -77,14 +78,14 @@ struct SignUpView: View {
                 
                 HStack{
                     Button {
-                        print("Google Sign Up button is clicked")
+                        print("Google Sign In button is clicked")
                     } label: {
                         HStack(spacing: 12) {
                             Image("GoogleIcon")
                                 .resizable()
                                 .frame(width: 20, height: 20)
                             
-                            Text("Sign up with Google")
+                            Text("Sign in with Google")
                         }
                     }
                     .googleButton()
@@ -93,9 +94,9 @@ struct SignUpView: View {
                 
                 HStack{
                     NavigationLink{
-                        SignInView()
+                        SignUpView()
                     } label: {
-                        Text("Already have an Account? Sign In")
+                        Text("New to Clinic Flow App? Sign Up")
                             .subHeader1Color()
                             .underline()
                     }.padding(.vertical, 35)
@@ -111,5 +112,5 @@ struct SignUpView: View {
 }
 
 #Preview {
-    SignUpView().environmentObject(PatientViewModel())
+    SignInView().environmentObject(PatientViewModel())
 }
