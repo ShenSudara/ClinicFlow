@@ -10,6 +10,7 @@ import AuthenticationServices
 
 struct SignUpView: View {
     @EnvironmentObject var patientViewModel: PatientViewModel
+    @Binding var path: NavigationPath
     
     var body: some View {
         VStack(alignment: .trailing) {
@@ -40,10 +41,8 @@ struct SignUpView: View {
                 }
                 HStack{
                     Button("Continue"){
-                        patientViewModel.sendOTP()
-                    }
-                    .navigationDestination(isPresented: $patientViewModel.navigateToVerify){
-                        VerificationView()
+                        guard patientViewModel.sendOTP() else { return }
+                        path.append(AuthState.verification)
                     }
                     .defaultButton()
                     
@@ -64,10 +63,9 @@ struct SignUpView: View {
                 }.padding(.vertical, 35)
                 
                 HStack{
-                    SignInWithAppleButton(.signUp) { request in
-                        print("Apple Sign Up")
-                    } onCompletion: { result in
-                        print(result)
+                    SignInWithAppleButton(.signUp) { _ in
+                        path.append(AuthState.registration)
+                    } onCompletion: { _ in
                     }
                     .signInWithAppleButtonStyle(.black)
                     .frame(height: 50)
@@ -77,7 +75,7 @@ struct SignUpView: View {
                 
                 HStack{
                     Button {
-                        print("Google Sign Up button is clicked")
+                        path.append(AuthState.registration)
                     } label: {
                         HStack(spacing: 12) {
                             Image("GoogleIcon")
@@ -92,13 +90,14 @@ struct SignUpView: View {
                 }
                 
                 HStack{
-                    NavigationLink{
-                        SignInView()
-                    } label: {
-                        Text("Already have an Account? Sign In")
-                            .subHeader1Color()
-                            .underline()
-                    }.padding(.vertical, 35)
+                    Text("Already have an Account? Sign In")
+                        .subHeader1Color()
+                        .underline()
+                        .padding(.vertical, 35)
+                        .onTapGesture {
+                            path = NavigationPath()
+                            path.append(AuthState.signIn)
+                        }
                 }
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
         }
@@ -111,5 +110,5 @@ struct SignUpView: View {
 }
 
 #Preview {
-    SignUpView().environmentObject(PatientViewModel())
+    SignUpView(path: .constant(NavigationPath())).environmentObject(PatientViewModel())
 }

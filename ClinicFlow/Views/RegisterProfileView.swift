@@ -8,11 +8,21 @@
 import SwiftUI
 
 struct RegisterProfileView: View {
+    @Binding var path: NavigationPath
+    
     var body: some View {
-        Text("Register Profile View")
+        VStack{
+            AppHeader(title:"Set Up Profile", showBackButton: true)
+            Text("This is Set Up Profile Page.")
+        }
+        .commonLayout()
+        .commonBackground()
+        .commonPadding()
+        .navigationBarBackButtonHidden(true)
+        .navigationBarHidden(true)
     }
 }
 
 #Preview {
-    RegisterProfileView().environmentObject(PatientViewModel())
+    RegisterProfileView(path: .constant(NavigationPath())).environmentObject(PatientViewModel())
 }

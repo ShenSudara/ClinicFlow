@@ -10,7 +10,9 @@ import AuthenticationServices
 
 struct SignInView: View {
     @EnvironmentObject var patientViewModel: PatientViewModel
-
+    @EnvironmentObject var appViewModel: AppViewModel
+    @Binding var path: NavigationPath
+    
     var body: some View {
         VStack(alignment: .trailing) {
             VStack{
@@ -40,13 +42,10 @@ struct SignInView: View {
                 }
                 HStack{
                     Button("Continue"){
-                        patientViewModel.sendOTP()
-                        print("Test")
+                        guard patientViewModel.sendOTP() else { return }
+                        path.append(AuthState.verification)
                     }
                     .defaultButton()
-                    .navigationDestination(isPresented: $patientViewModel.navigateToVerify){
-                        VerificationView()
-                    }
                     
                 }
                 HStack{
@@ -65,10 +64,9 @@ struct SignInView: View {
                 }.padding(.vertical, 35)
                 
                 HStack{
-                    SignInWithAppleButton(.signIn) { request in
-                        print("Apple Sign Up")
-                    } onCompletion: { result in
-                        print(result)
+                    SignInWithAppleButton(.signIn) { _ in
+                        appViewModel.appState = AppState.main
+                    } onCompletion: { _ in
                     }
                     .signInWithAppleButtonStyle(.black)
                     .frame(height: 50)
@@ -78,7 +76,7 @@ struct SignInView: View {
                 
                 HStack{
                     Button {
-                        print("Google Sign In button is clicked")
+                        appViewModel.appState = AppState.main
                     } label: {
                         HStack(spacing: 12) {
                             Image("GoogleIcon")
@@ -93,13 +91,14 @@ struct SignInView: View {
                 }
                 
                 HStack{
-                    NavigationLink{
-                        SignUpView()
-                    } label: {
-                        Text("New to Clinic Flow App? Sign Up")
-                            .subHeader1Color()
-                            .underline()
-                    }.padding(.vertical, 35)
+                    Text("New to Clinic Flow App? Sign Up")
+                        .subHeader1Color()
+                        .underline()
+                        .padding(.vertical, 35)
+                        .onTapGesture {
+                            path = NavigationPath()
+                            path.append(AuthState.signUp)
+                        }
                 }
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
         }
@@ -112,5 +111,5 @@ struct SignInView: View {
 }
 
 #Preview {
-    SignInView().environmentObject(PatientViewModel())
+    SignInView(path: .constant(NavigationPath())).environmentObject(PatientViewModel())
 }

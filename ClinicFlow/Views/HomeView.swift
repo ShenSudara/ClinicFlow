@@ -12,7 +12,7 @@ struct HomeView: View {
     
     var body: some View {
         VStack{
-            Text("Home Dashboard")
+            Text("This is Dashboard Home Page.")
         }
         .commonLayout()
         .commonPadding()

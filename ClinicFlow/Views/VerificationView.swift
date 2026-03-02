@@ -9,8 +9,8 @@ import SwiftUI
 
 struct VerificationView: View {
     @EnvironmentObject var patientViewModel: PatientViewModel
-    @EnvironmentObject var appViewModel: AppViewModel
-    
+    @Binding var path: NavigationPath
+
     var body: some View {
         VStack{
             AppHeader(title:"Verify", showBackButton: true)
@@ -41,9 +41,7 @@ struct VerificationView: View {
             }
             HStack{
                 Button("Verify"){
-                    patientViewModel.verifyOTP()
-                    appViewModel.appState = .main
-                    
+                    guard patientViewModel.verifyOTP() else { return }
                 }
                 .defaultButton()
                 
@@ -58,5 +56,5 @@ struct VerificationView: View {
 }
 
 #Preview {
-    VerificationView().environmentObject(PatientViewModel())
+    VerificationView(path: .constant(NavigationPath())).environmentObject(PatientViewModel())
 }

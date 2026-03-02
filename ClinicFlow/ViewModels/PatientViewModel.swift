@@ -9,9 +9,7 @@ import Foundation
 import Combine
 
 class PatientViewModel: ObservableObject {
-    @Published var navigateToVerify = false
-    @Published var navigateToHome = false
-    @Published var navigateToRegistration = false
+    @Published var user: UserState = .unknown
     
     @Published var mobileNo: String = ""
     @Published var otpCode: String = ""
@@ -31,15 +29,14 @@ class PatientViewModel: ObservableObject {
         self.mobileNo = mobileNo
     }
     
-    func sendOTP() {
+    func sendOTP()-> Bool {
         guard !mobileNo.isEmpty else {
             errorMessage = "Mobile number cannot be empty"
-            return
+            return false
         }
         
         isLoading = true
         errorMessage = nil
-        navigateToVerify = true
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.isLoading = false
@@ -47,16 +44,17 @@ class PatientViewModel: ObservableObject {
             self.otpCode = String(format: "%04d", Int.random(in: 1000...9999))
             print("OTP sent to \(self.mobileNo): \(self.otpCode)")
         }
+        return true
     }
     
-    func verifyOTP() {
+    func verifyOTP() -> Bool {
         guard isOTPSent else {
             errorMessage = "Please send OTP first"
-            return
+            return false
         }
         guard otpCode == inputOTPCode else {
             errorMessage = "Invalid OTP"
-            return
+            return false
         }
         
         isLoading = true
@@ -66,12 +64,14 @@ class PatientViewModel: ObservableObject {
             self.isLoading = false
             if let index = self.patients.firstIndex(where: { $0.mobileNo ==  self.mobileNo }) {
                 self.patient = self.patients[index]
-                self.navigateToHome = true
+                self.user = .existing
             }else{
                 self.patient = self.addPatient()
-                self.navigateToRegistration = true
+                self.user = .newUser
             }
         }
+        
+        return true
     }
     
     func register() {
@@ -118,27 +118,14 @@ class PatientViewModel: ObservableObject {
         }
         
         if let index = patients.firstIndex(where: { $0.mobileNo == mobileNo }) {
+            errorMessage = nil
             patients[index] = patient
             reset()
         } else {
             errorMessage = "Patient not found. Please complete OTP verification first."
         }
     }
-    
-    func signIn(mobileNo: String) {
-        guard !mobileNo.trimmingCharacters(in: .whitespaces).isEmpty else {
-            errorMessage = "Mobile number cannot be empty"
-            return
-        }
         
-        if patients.first(where: { $0.mobileNo == mobileNo }) != nil {
-            sendOTP()
-            errorMessage = nil
-        } else {
-            errorMessage = "Mobile number not found. Please register first."
-        }
-    }
-    
     func signOut(){
         reset()
     }
@@ -154,6 +141,7 @@ class PatientViewModel: ObservableObject {
     private func reset(){
         mobileNo = ""
         otpCode = ""
+        user = .unknown
         patient = Patient(mobileNo: "")
         isLoading = false
         errorMessage = nil
