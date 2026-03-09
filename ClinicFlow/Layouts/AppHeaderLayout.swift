@@ -11,6 +11,7 @@ struct AppHeader: View {
     
     let title: String
     var showBackButton: Bool = false
+    var backAction: (() -> Void)? = nil
     
     @Environment(\.dismiss) private var dismiss
     
@@ -20,7 +21,11 @@ struct AppHeader: View {
             HStack{
                 if showBackButton {
                     Button {
-                        dismiss()
+                        if let backAction = backAction {
+                            backAction()
+                        } else {
+                            dismiss()
+                        }
                     } label: {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 18, weight: .semibold))

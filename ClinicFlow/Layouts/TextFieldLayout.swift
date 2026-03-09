@@ -26,6 +26,31 @@ struct DefaultTextFieldStyle: TextFieldStyle {
     }
 }
 
+
+struct ProfileTextField : View {
+    let label: String
+    let placeholder : String
+    @Binding var text: String
+    
+    var body: some View {
+        HStack{
+            Text(label)
+                .font(.system(size: 18, weight: .medium))
+                .foregroundColor(.black)
+                .frame(width: 110, alignment: .leading)
+            
+            TextField(placeholder, text: $text)
+                .font(.system(size: 18, weight: .medium))
+                .padding(.vertical, 8)
+                .padding(.horizontal, 25)
+                .foregroundColor(Color("SubHeader2"))
+                .disabled(true)
+        }
+        .padding(.vertical, 8)
+        .padding(.horizontal, 16)
+    }
+}
+
 extension View {
     func defaultTextField(strokeColor: Color = Color("IconBackground"), shadowColor: Color = Color.black.opacity(0.05)) -> some View {
         self.textFieldStyle(DefaultTextFieldStyle())
