@@ -31,6 +31,38 @@ struct MainView: View {
                 
                 AppointmentSegmentPicker(selection: $filterSelection)
                                     .padding(.bottom, 15)
+                
+                ScrollView {
+                                    VStack(alignment: .leading, spacing: 15) {
+                                        Text("Today")
+                                            .font(.system(size: 16, weight: .semibold))
+                                            .foregroundColor(.gray)
+                                            .padding(.horizontal, 20)
+                                        
+                                        // Example Cards
+                                        AppointmentCard(
+                                            doctorName: "Dr. Ashen Sudaraka",
+                                            department: "General Checkup",
+                                            time: "10:30 AM",
+                                            dateDay: "10",
+                                            dateMonth: "MAR",
+                                            status: "Pending",
+                                            statusColor: .orange
+                                        )
+                                        
+                                        AppointmentCard(
+                                            doctorName: "Dr. Shanel Perera",
+                                            department: "Cardiology Clinic",
+                                            time: "12:30 PM",
+                                            dateDay: "10",
+                                            dateMonth: "MAR",
+                                            status: "Ongoing",
+                                            statusColor: .green
+                                        )
+                                    }
+                                    .padding(.top, 10)
+                                    .padding(.bottom, 120) 
+                                }
             
             // 4. Floating Action Button
             Button {
