@@ -18,7 +18,7 @@ struct AppointmentCard: View {
 
     var body: some View {
         HStack(spacing: 15) {
-            // Date Badge
+            
             VStack {
                 Text(dateMonth)
                     .font(.system(size: 14, weight: .bold))
@@ -30,7 +30,6 @@ struct AppointmentCard: View {
             .background(statusColor.opacity(0.1))
             .cornerRadius(12)
             
-            // Doctor Info
                         VStack(alignment: .leading, spacing: 4) {
                             HStack {
                                 Text(doctorName)

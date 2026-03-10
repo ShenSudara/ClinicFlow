@@ -39,13 +39,17 @@ struct TabButton: View {
             selectedTab = tab
         } label: {
             VStack(spacing: 4) {
-                Image(systemName: isSelected ? icon + ".fill" : icon)
-                    .font(.system(size: 24))
+                Image(systemName: isSelected ? icon + "" : icon)
+                    .font(.system(size: 22))
+                    .frame(height: 26)
+                
                 Text(label)
-                    .font(.system(size: 12, weight: .medium))
+                    .font(.system(size: 12, weight: isSelected ? .bold : .medium))
             }
+            
             .foregroundColor(isSelected ? Color("NPrimaryColor") : Color.gray.opacity(0.6))
             .frame(maxWidth: .infinity)
+            .animation(.none, value: isSelected)
         }
     }
 }
