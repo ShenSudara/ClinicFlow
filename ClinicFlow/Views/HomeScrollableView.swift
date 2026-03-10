@@ -142,3 +142,96 @@ struct HomeScrollableView: View {
                             .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 5)
                         }
                     }
+                    
+                    //Quick Actions
+                    struct QuickActionsRow: View {
+                        var body: some View {
+                            HStack(spacing: 20) {
+                                ActionItem(icon: "calendar.badge.plus", label: "Book Now", color: .blue)
+                                ActionItem(icon: "mappin.and.ellipse", label: "Clinics", color: .green)
+                                ActionItem(icon: "video", label: "Tele Health", color: .yellow)
+                                ActionItem(icon: "phone", label: "Contact", color: .orange)
+                            }
+                        }
+                    }
+                    
+                    
+                    struct ActionItem: View {
+                        let icon: String
+                        let label: String
+                        let color: Color
+                        
+                        var body: some View {
+                            VStack(spacing: 8) {
+                                ZStack {
+                                    Circle()
+                                        .fill(color.opacity(0.1))
+                                        .frame(width: 50, height: 50)
+                                    Image(systemName: icon)
+                                        .foregroundColor(color)
+                                        .font(.system(size: 20))
+                                }
+                                Text(label)
+                                    .font(.system(size: 12, weight: .medium))
+                                    .headerColor()
+                            }
+                            .frame(maxWidth: .infinity)
+                        }
+                    }
+                    
+                    //Insight section
+                    struct HealthInsightsRow: View {
+                        var body: some View {
+                            HStack(spacing: 15) {
+                                InsightCard(title: "Daily Steps", value: "8,432", goal: "/ 10k", icon: "figure.walk", progress: 0.84, color: .blue)
+                                InsightCard(title: "Heart Rate", value: "72", goal: "BPM", icon: "heart.fill", progress: nil, color: .red)
+                            }
+                        }
+                    }
+                    
+                    
+                    struct InsightCard: View {
+                        let title: String
+                        let value: String
+                        let goal: String
+                        let icon: String
+                        let progress: Double?
+                        let color: Color
+                        
+                        var body: some View {
+                            VStack(alignment: .leading, spacing: 10) {
+                                HStack {
+                                    Image(systemName: icon)
+                                        .foregroundColor(color)
+                                    Spacer()
+                                    Text(title).font(.system(size: 12)).subHeader2Color()
+                                }
+                                
+                                HStack(alignment: .bottom, spacing: 2) {
+                                    Text(value).font(.system(size: 20, weight: .bold))
+                                    Text(goal).font(.system(size: 12)).subHeader2Color().padding(.bottom, 2)
+                                }
+                                
+                                if let p = progress {
+                                    ZStack(alignment: .leading) {
+                                        Capsule().fill(Color.gray.opacity(0.1)).frame(height: 6)
+                                        Capsule().fill(color).frame(width: 100 * CGFloat(p), height: 6)
+                                    }
+                                } else {
+                                    // Heart rate graph placeholder
+                                    HStack(alignment: .bottom, spacing: 3) {
+                                        ForEach(0..<6) { _ in
+                                            RoundedRectangle(cornerRadius: 2)
+                                                .fill(color.opacity(0.5))
+                                                .frame(width: 4, height: CGFloat.random(in: 10...25))
+                                        }
+                                    }
+                                }
+                            }
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.white)
+                            .cornerRadius(15)
+                            .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 5)
+                        }
+                    }
