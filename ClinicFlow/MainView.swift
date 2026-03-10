@@ -8,22 +8,26 @@
 import SwiftUI
 
 struct MainView: View {
-    @State private var selectedTab: MainTab = .appointments
+        @State private var selectedTab: MainTab = .appointments
+        @State private var filterSelection: AppointmentFilter = .upcoming
+        @State private var searchText: String = ""
     
     var body: some View {
         ZStack(alignment: .bottom) {
             VStack(spacing: 0) {
-                // 1. Header
+                
                 MainHeader(title: "Appointments", profileImageName: "UserAvatar")
                 
-                // 2. Main Content Area
-                ScrollView {
-                    VStack(spacing: 20) {
-                        AppointmentListView()
-                    }
-                    .padding(.top, 20)
+                SHStack {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.gray)
+                    TextField("Search doctor or clinic", text: $searchText)
                 }
-                .background(Color("Background").opacity(0.4))
+                .padding()
+                .background(Color.gray.opacity(0.1))
+                .cornerRadius(12)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 15)
                 
                 // 3. Bottom Tab Bar
                 CustomTabBar(selectedTab: $selectedTab)
