@@ -30,7 +30,54 @@ struct HomeScrollableView: View {
                 VStack(spacing: 15) {
                     SectionHeader(title: "Upcoming Appointments", actionText: "See all")
 
-
+                                 
+                    AppointmentCard(
+                        name: "Dr. Ashen Sudaraka",
+                        type: "General Checkup",
+                        date: "MAR 10",
+                        time: "10:30 AM",
+                        status: "Pending",
+                        statusColor: .orange
+                    )
+                                        
+                    AppointmentCard(
+                        name: "Dr. Shanel Perera",
+                        type: "Cardiology Clinic",
+                        date: "MAR 10",
+                        time: "12:30 AM",
+                        status: "Ongoing",
+                        statusColor: .green
+                    )
+                }
+                
+                //Quick Actions
+                VStack(alignment: .leading, spacing: 15) {
+                    SectionHeader(title: "Quick Actions")
+                    QuickActionsRow()
+                }
+                                
+                //Health Insights
+                VStack(alignment: .leading, spacing: 15) {
+                    SectionHeader(title: "Health Insights")
+                    HealthInsightsRow()
+                }
+                
+               //Recent Clinics
+                VStack(alignment: .leading, spacing: 15) {
+                    SectionHeader(title: "Recent Clinics", actionText: "See all")
+                    RecentClinicsRow()
+                }
+            }
+            .commonPadding()
+            .padding(.top, 20)
+            .padding(.bottom, 100)
+        }
+        .commonLayout()
+        .commonBackground()
+    }
+}
+                    
+                    
                     //Section Header
                     struct SectionHeader: View {
                         let title: String
@@ -52,7 +99,7 @@ struct HomeScrollableView: View {
                             }
                         }
                     }
-
+                    
                     //Mood Content
                     struct MoodGridView: View {
                         let columns = [GridItem(.flexible()), GridItem(.flexible())]
@@ -66,7 +113,7 @@ struct HomeScrollableView: View {
                             }
                         }
                     }
-
+                    
                     //mood card style
                     struct MoodItem: View {
                         let emoji: String
@@ -90,7 +137,7 @@ struct HomeScrollableView: View {
                     }
                     
                     
-
+                    
                     //Appointment Card
                     struct AppointmentCard: View {
                         let name: String
@@ -235,3 +282,61 @@ struct HomeScrollableView: View {
                             .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 5)
                         }
                     }
+                    
+                    struct RecentClinicsRow: View {
+                        var body: some View {
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 15) {
+                                    ClinicCard()
+                                    ClinicCard()
+                                }
+                            }
+                        }
+                    }
+                    
+                    
+                    //Clinics Section
+                    struct ClinicCard: View {
+                        var body: some View {
+                            VStack(alignment: .leading) {
+                                Image("logo") // Replace with actual clinic image if available
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 200, height: 100)
+                                    .clipped()
+                                
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("Cardiology Clinic")
+                                        .font(.system(size: 16, weight: .bold))
+                                    Text("Dr. Naduni Perera")
+                                        .font(.system(size: 12))
+                                        .subHeader2Color()
+                                    
+                                    Button(action: {}) {
+                                        HStack {
+                                            Image(systemName: "calendar")
+                                            Text("Wed, Oct 24")
+                                        }
+                                        .font(.system(size: 12, weight: .bold))
+                                        .frame(maxWidth: .infinity)
+                                        .padding(.vertical, 8)
+                                        .background(Color("NPrimaryColor"))
+                                        .foregroundColor(.white)
+                                        .cornerRadius(8)
+                                    }
+                                    .padding(.top, 5)
+                                }
+                                .padding()
+                            }
+                            .frame(width: 200)
+                            .background(Color.white)
+                            .cornerRadius(15)
+                            .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 5)
+                        }
+                    }
+
+                    #Preview {
+                        HomeScrollableView()
+                            .environmentObject(PatientViewModel())
+                    }
+                    
