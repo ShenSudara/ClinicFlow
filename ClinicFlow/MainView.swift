@@ -29,9 +29,8 @@ struct MainView: View {
                 .padding(.horizontal, 20)
                 .padding(.vertical, 15)
                 
-                // 3. Bottom Tab Bar
-                CustomTabBar(selectedTab: $selectedTab)
-            }
+                AppointmentSegmentPicker(selection: $filterSelection)
+                                    .padding(.bottom, 15)
             
             // 4. Floating Action Button
             Button {
