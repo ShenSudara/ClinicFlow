@@ -61,7 +61,7 @@ struct HomeScrollableView: View {
                 
                 VStack(alignment: .leading, spacing: 15) {
                     SectionHeader(title: "Recent Clinics", actionText: "See all")
-                    ResentClinicsRow()
+                    
                 }
                 
                 
