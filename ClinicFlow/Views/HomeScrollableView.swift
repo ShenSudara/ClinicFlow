@@ -52,3 +52,39 @@ struct HomeScrollableView: View {
                             }
                         }
                     }
+
+                    //Mood Content
+                    struct MoodGridView: View {
+                        let columns = [GridItem(.flexible()), GridItem(.flexible())]
+                        
+                        var body: some View {
+                            LazyVGrid(columns: columns, spacing: 15) {
+                                MoodItem(emoji: "😊", label: "Good", color: .green)
+                                MoodItem(emoji: "😐", label: "Ok", color: .blue)
+                                MoodItem(emoji: "🙁", label: "Not Well", color: .orange)
+                                MoodItem(emoji: "🚨", label: "Urgent Help", color: .red)
+                            }
+                        }
+                    }
+
+                    //mood card style
+                    struct MoodItem: View {
+                        let emoji: String
+                        let label: String
+                        let color: Color
+                        
+                        var body: some View {
+                            VStack(spacing: 10) {
+                                Text(emoji)
+                                    .font(.system(size: 32))
+                                Text(label)
+                                    .headerColor()
+                                    .font(.system(size: 16, weight: .medium))
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 20)
+                            .background(Color.white)
+                            .cornerRadius(15)
+                            .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 5)
+                        }
+                    }
