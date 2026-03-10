@@ -19,6 +19,17 @@ struct MainView: View {
             Appointment(doctorName: "Dr. Nadu Sharindi", clinicName: "City Hospital", type: "General Checkup", time: "02:00 PM", day: "05", month: "MAR", filterStatus: .cancelled, displayStatus: "Cancelled", color: .red)
         ]
     
+    var filteredAppointments: [Appointment] {
+            appointments.filter { appt in
+                let matchesSegment = appt.filterStatus == filterSelection
+                let matchesSearch = searchText.isEmpty ||
+                                    appt.doctorName.localizedCaseInsensitiveContains(searchText) ||
+                                    appt.clinicName.localizedCaseInsensitiveContains(searchText)
+                
+                return matchesSegment && matchesSearch
+            }
+        }
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             VStack(spacing: 0) {
