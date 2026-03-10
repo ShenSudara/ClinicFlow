@@ -41,7 +41,47 @@ struct MainView: View {
                                         
                                         // Example Cards
                                         AppointmentCard(
-                                            doctorName: "Dr. Ashen Sudaraka",
+                                            doctorName: "Dr. Nadu Sharindi",
+                                            department: "General Checkup",
+                                            time: "10:30 AM",
+                                            dateDay: "10",
+                                            dateMonth: "MAR",
+                                            status: "Pending",
+                                            statusColor: .orange
+                                        )
+                                        
+                                        AppointmentCard(
+                                            doctorName: "Dr. Shanel Perera",
+                                            department: "Cardiology Clinic",
+                                            time: "12:30 PM",
+                                            dateDay: "10",
+                                            dateMonth: "MAR",
+                                            status: "Ongoing",
+                                            statusColor: .green
+                                        )
+                                        
+                                        AppointmentCard(
+                                            doctorName: "Dr. Nadu Sharindi",
+                                            department: "General Checkup",
+                                            time: "10:30 AM",
+                                            dateDay: "10",
+                                            dateMonth: "MAR",
+                                            status: "Cancelled",
+                                            statusColor: .orange
+                                        )
+                                        
+                                        AppointmentCard(
+                                            doctorName: "Dr. Shanel Perera",
+                                            department: "Cardiology Clinic",
+                                            time: "12:30 PM",
+                                            dateDay: "10",
+                                            dateMonth: "MAR",
+                                            status: "Ongoing",
+                                            statusColor: .green
+                                        )
+                                        
+                                        AppointmentCard(
+                                            doctorName: "Dr. Nadu Sharindi",
                                             department: "General Checkup",
                                             time: "10:30 AM",
                                             dateDay: "10",
