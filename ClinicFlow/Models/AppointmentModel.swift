@@ -10,12 +10,11 @@ import SwiftUI
 struct Appointment: Identifiable {
     let id = UUID()
     let doctorName: String
-    let clinicName: String // Added for search
-    let type: String
+    let clinicName: String
     let time: String
     let day: String
     let month: String
-    let filterStatus: AppointmentFilter // .upcoming, .past, or .cancelled
-    let displayStatus: String // "Pending", "Ongoing", etc.
+    let filterStatus: AppointmentFilter
+    let displayStatus: String
     let color: Color
 }
