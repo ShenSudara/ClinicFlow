@@ -106,33 +106,49 @@ struct HomeScrollableView: View {
                         
                         var body: some View {
                             LazyVGrid(columns: columns, spacing: 15) {
-                                MoodItem(emoji: "😊", label: "Good", color: .green)
-                                MoodItem(emoji: "😐", label: "Ok", color: .blue)
-                                MoodItem(emoji: "🙁", label: "Not Well", color: .orange)
-                                MoodItem(emoji: "🚨", label: "Urgent Help", color: .red)
+                                MoodItem(iconName: "face.smiling.fill", label: "Good", color: .green)
+                                MoodItem(iconName: "face.dashed.fill", label: "Ok", color: .blue)
+                                MoodItem(iconName: "face.frowning.fill", label: "Not Well", color: .orange)
+                                MoodItem(iconName: "exclamationmark.diamond.fill", label: "Urgent Help", color: .red, hasBorder: true)
                             }
                         }
                     }
                     
                     //mood card style
                     struct MoodItem: View {
-                        let emoji: String
+                        let iconName: String
                         let label: String
                         let color: Color
+                        var hasBorder: Bool = false
                         
                         var body: some View {
-                            VStack(spacing: 10) {
-                                Text(emoji)
-                                    .font(.system(size: 32))
-                                Text(label)
-                                    .headerColor()
-                                    .font(.system(size: 16, weight: .medium))
-                            }
+                            VStack(spacing: 15) {
+                                ZStack {
+                                   Circle()
+                                   .fill(color.opacity(0.08))
+                                    .frame(width: 60, height: 60)
+                                            
+                                    Image(systemName: iconName)
+                                            .font(.system(size: 32, weight: .medium))
+                                            .foregroundColor(color)
+                                    }
+                                            
+                                    Text(label)
+                                        .font(.system(size: 16, weight: .bold))
+                                            .headerColor()
+                                    }
                             .frame(maxWidth: .infinity)
-                            .padding(.vertical, 20)
-                            .background(Color.white)
-                            .cornerRadius(15)
-                            .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 5)
+                            .padding(.vertical, 25)
+                            .background(
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .fill(Color.white)
+                                            .overlay(
+                                                // Only adds the red border for "Urgent Help"
+                                                RoundedRectangle(cornerRadius: 20)
+                                                    .stroke(color.opacity(hasBorder ? 0.2 : 0), lineWidth: 1.5)
+                                            )
+                                    )
+                            .shadow(color: Color.black.opacity(0.05), radius: 10, x: 0, y: 4)
                         }
                     }
                     
@@ -299,7 +315,7 @@ struct HomeScrollableView: View {
                     struct ClinicCard: View {
                         var body: some View {
                             VStack(alignment: .leading) {
-                                Image("logo") // Replace with actual clinic image if available
+                                Image("ClinicImage") // Replace with actual clinic image if available
                                     .resizable()
                                     .scaledToFill()
                                     .frame(width: 200, height: 100)
