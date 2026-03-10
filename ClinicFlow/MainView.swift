@@ -18,7 +18,7 @@ struct MainView: View {
                 
                 MainHeader(title: "Appointments", profileImageName: "UserAvatar")
                 
-                SHStack {
+                HStack {
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.gray)
                     TextField("Search doctor or clinic", text: $searchText)
@@ -61,25 +61,26 @@ struct MainView: View {
                                         )
                                     }
                                     .padding(.top, 10)
-                                    .padding(.bottom, 120) 
+                                    .padding(.bottom, 120)
                                 }
-            
-            // 4. Floating Action Button
-            Button {
-                // Action to add new appointment
-            } label: {
-                Image(systemName: "plus")
-                    .font(.system(size: 28, weight: .bold))
-                    .foregroundColor(.white)
-                    .frame(width: 65, height: 65)
-                    .background(Color("NPrimaryColor"))
-                    .clipShape(Circle())
-                    .shadow(color: Color("NPrimaryColor").opacity(0.4), radius: 10, x: 0, y: 5)
-            }
-            .padding(.bottom, 90)
-            .padding(.trailing, 25)
-            .frame(maxWidth: .infinity, alignment: .bottomTrailing)
-        }
-        .edgesIgnoringSafeArea(.bottom)
-    }
-}
+        
+                                CustomTabBar(selectedTab: $selectedTab)
+                            }
+                            
+                            Button(action: { /* Navigate to Book Appt */ }) {
+                                Image(systemName: "plus")
+                                    .font(.system(size: 30, weight: .bold))
+                                    .foregroundColor(.white)
+                                    .frame(width: 60, height: 60)
+                                    .background(Color("NPrimaryColor"))
+                                    .clipShape(Circle())
+                                    .shadow(radius: 5)
+                            }
+                            .padding(.bottom, 100)
+                            .padding(.trailing, 25)
+                            .frame(maxWidth: .infinity, alignment: .bottomTrailing)
+                        }
+                        .edgesIgnoringSafeArea(.bottom)
+                        .commonBackground()
+                    }
+                }
