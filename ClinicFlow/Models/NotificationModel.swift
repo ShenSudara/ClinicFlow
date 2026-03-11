@@ -5,6 +5,8 @@
 //  Created by COBSCCOMP242P-063 on 2026-03-11.
 //
 
+import SwiftUI
+
 struct NotificationItem: Identifiable {
     let id = UUID()
     let title: String
