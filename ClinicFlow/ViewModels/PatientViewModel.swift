@@ -14,7 +14,13 @@ class PatientViewModel: ObservableObject {
     @Published var mobileNo: String = ""
     @Published var otpCode: String = ""
     @Published var inputOTPCode: String = ""
-    @Published var patient: Patient = Patient(mobileNo: "")
+    @Published var patient: Patient = Patient(mobileNo: "") {
+        didSet {
+            if let index = patients.firstIndex(where: { $0.id == patient.id }) {
+                patients[index] = patient
+            }
+        }
+    }
 
     
     @Published var isLoading: Bool = false
@@ -74,56 +80,62 @@ class PatientViewModel: ObservableObject {
         return true
     }
     
-    func register() {
+    func register() -> Bool {
         guard !patient.mobileNo.isEmpty else {
             errorMessage = "Mobile number cannot be empty"
-            return
+            return false
         }
         
         //name
         guard let name = patient.name, !name.trimmingCharacters(in: .whitespaces).isEmpty else {
             errorMessage = "Name cannot be empty"
-            return
+            return false
         }
         //nic
         guard let nic = patient.nicNumber, !nic.trimmingCharacters(in: .whitespaces).isEmpty else {
             errorMessage = "NIC cannot be empty"
-            return
+            return false
         }
         
         //dob
-        guard let dob = patient.dob else {
-            errorMessage = "Date of birth cannot be empty"
-            return
-        }
-        guard dob <= Date() else {
-            errorMessage = "Date of birth cannot be in the future"
-            return
-        }
+//        guard let dob = patient.dob else {
+//            errorMessage = "Date of birth cannot be empty"
+//            return false
+//        }
+//        guard dob <= Date() else {
+//            errorMessage = "Date of birth cannot be in the future"
+//            return false
+//        }
         
         //email
         guard let email = patient.email, !email.trimmingCharacters(in: .whitespaces).isEmpty else {
             errorMessage = "Email cannot be empty"
-            return
+            return false
         }
         guard email.contains("@") else {
             errorMessage = "Please enter a valid email"
-            return
+            return false
         }
         
         //address
         guard let address = patient.address, !address.trimmingCharacters(in: .whitespaces).isEmpty else {
             errorMessage = "Address cannot be empty"
-            return
+            return false
         }
         
-        if let index = patients.firstIndex(where: { $0.mobileNo == mobileNo }) {
-            errorMessage = nil
+        if let index = patients.firstIndex(where: { $0.mobileNo == patient.mobileNo }) {
             patients[index] = patient
-            reset()
+            self.patient = patients[index]
+            self.user = .existing
         } else {
-            errorMessage = "Patient not found. Please complete OTP verification first."
+            patients.append(patient)
+            if let newIndex = patients.firstIndex(where: { $0.mobileNo == patient.mobileNo }) {
+                self.patient = patients[newIndex]
+            }
+            self.user = .newUser
         }
+        errorMessage = nil
+        return true
     }
         
     func signOut(){

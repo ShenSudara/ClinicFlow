@@ -1,19 +1,12 @@
-//
-//  HomeView.swift
-//  ClinicFlow
-//
-//  Created by Ashen Sudaraka on 2026-03-01.
-//
-
 import SwiftUI
 
-struct HomeView: View {
-    @EnvironmentObject var patientViewModel : PatientViewModel
+struct NotificationsView: View {
+    @EnvironmentObject var patientViewModel: PatientViewModel
     
     var body: some View {
         ZStack{
             VStack{
-                TabHeader(title: "Dashboard", isHome: true)
+                TabHeader(title: "Notifications", isHome: true)
             }
             VStack{
                 
@@ -28,5 +21,5 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView().environmentObject(PatientViewModel())
+    NotificationsView().environmentObject(PatientViewModel())
 }
