@@ -25,7 +25,9 @@ struct RegisterProfileView: View {
                     path.removeLast(path.count)
                 },
                 doneAction: {
-                    appViewModel.appState = .main
+                    if patientViewModel.register() {
+                        appViewModel.appState = .main
+                    }
                 }
             )
             
@@ -117,7 +119,9 @@ struct RegisterProfileView: View {
                 }
                 VStack{
                     Button{
-                        appViewModel.appState = .main
+                        if patientViewModel.register() {
+                            appViewModel.appState = .main
+                        }
                     } label: {
                         Text("Complete Profile")
                     }.defaultButton()
