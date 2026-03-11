@@ -10,14 +10,24 @@ import SwiftUI
 struct RegisterProfileView: View {
     @Binding var path: NavigationPath
     @EnvironmentObject var patientViewModel: PatientViewModel
+    @EnvironmentObject var appViewModel: AppViewModel
     @State private var fullName: String = ""
+    @State private var activeField: EditProfileField?
     
     var body: some View {
         VStack{
-            AppHeader(title:"Set Up Profile", showBackButton: true, backAction: {
-                patientViewModel.signOut()
-                path.removeLast(path.count)
-            })
+            AppHeader(
+                title:"Set Up Profile",
+                showBackButton: true,
+                showDoneButton: true,
+                backAction: {
+                    patientViewModel.signOut()
+                    path.removeLast(path.count)
+                },
+                doneAction: {
+                    appViewModel.appState = .main
+                }
+            )
             
             HStack{
                 Button {
@@ -38,7 +48,11 @@ struct RegisterProfileView: View {
                                 get: { patientViewModel.patient.name ?? "" },
                                 set: { patientViewModel.patient.name = $0 }
                             )
-                        ).overlay(
+                        )
+                        .onTapGesture {
+                            activeField = .name
+                        }
+                        .overlay(
                             Rectangle()
                                 .frame(height: 1)
                                 .foregroundColor(Color("IconBackground")),
@@ -50,6 +64,9 @@ struct RegisterProfileView: View {
                                 set: { patientViewModel.patient.nicNumber = $0 }
                             )
                         )
+                        .onTapGesture {
+                            activeField = .nic
+                        }
                     }
                     .background(.white)
                     .cornerRadius(10)
@@ -60,7 +77,11 @@ struct RegisterProfileView: View {
                     VStack{
                         ProfileTextField(
                             label: "Mobile No", placeholder: "0123456789", text: $patientViewModel.patient.mobileNo
-                        ).overlay(
+                        )
+                        .onTapGesture {
+                            activeField = .mobile
+                        }
+                        .overlay(
                             Rectangle()
                                 .frame(height: 1)
                                 .foregroundColor(Color("IconBackground")),
@@ -71,7 +92,10 @@ struct RegisterProfileView: View {
                                 get: { patientViewModel.patient.email ?? "" },
                                 set: { patientViewModel.patient.email = $0 }
                             )
-                        ).overlay(
+                        ).onTapGesture {
+                            activeField = .email
+                        }
+                        .overlay(
                             Rectangle()
                                 .frame(height: 1)
                                 .foregroundColor(Color("IconBackground")),
@@ -83,17 +107,72 @@ struct RegisterProfileView: View {
                                 set: { patientViewModel.patient.address = $0 }
                             )
                         )
-
+                        .onTapGesture {
+                            activeField = .address
+                        }
+                        
                     }
                     .background(.white)
                     .cornerRadius(10)
                 }
+                VStack{
+                    Button{
+                        appViewModel.appState = .main
+                    } label: {
+                        Text("Complete Profile")
+                    }.defaultButton()
+                }.padding(.vertical)
                 Spacer()
             }.frame(
                 maxWidth: .infinity,
                 maxHeight: .infinity,
                 alignment: .topLeading
             )
+        }
+        .sheet(item: $activeField) {field in
+            switch field {
+                case .name:
+                    EditProfileFieldSheet(
+                        title: "Name",
+                        label: "Full Name",
+                        value: Binding(
+                            get: { patientViewModel.patient.name ?? "" },
+                            set: { patientViewModel.patient.name = $0 }
+                        )
+                    )
+                case .nic:
+                    EditProfileFieldSheet(
+                        title: "NIC",
+                        label: "NIC Number",
+                        value: Binding(
+                            get: { patientViewModel.patient.nicNumber ?? "" },
+                            set: { patientViewModel.patient.nicNumber = $0 }
+                        )
+                )
+                case .mobile:
+                    EditProfileFieldSheet(
+                        title: "Mobile",
+                        label: "Mobile Number",
+                        value: $patientViewModel.patient.mobileNo)
+                case .email:
+                    EditProfileFieldSheet(
+                        title: "Email",
+                        label: "Email",
+                        value: Binding(
+                            get: { patientViewModel.patient.email ?? "" },
+                            set: { patientViewModel.patient.email = $0 }
+                        )
+                )
+                case .address:
+                    EditProfileFieldSheet(
+                        title: "Address",
+                        label: "Address",
+                        value: Binding(
+                            get: { patientViewModel.patient.address ?? "" },
+                            set: { patientViewModel.patient.address = $0 }
+                        )
+                    )
+                }
         }
         .commonLayout()
         .commonPadding()
