@@ -77,7 +77,7 @@ struct MainView: View {
                                             ForEach(filteredAppointments) { appt in
                                             AppointmentCard(
                                             doctorName: appt.doctorName,
-                                            department: appt.clinicName,
+                                            department: appt.clinicName ,
                                             time: appt.time,
                                             dateDay: appt.day,
                                             dateMonth: appt.month,
