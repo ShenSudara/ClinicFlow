@@ -4,12 +4,16 @@ struct NotificationsView: View {
     @EnvironmentObject var patientViewModel: PatientViewModel
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Text("This is Notification View.")
-
+        ZStack{
+            VStack{
+                TabHeader(title: "Notifications", isHome: true)
+            }
+            VStack{
+                
+            }
+            .commonPadding()
         }
         .commonLayout()
-        .commonPadding()
         .commonBackground()
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)

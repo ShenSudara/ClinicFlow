@@ -11,11 +11,16 @@ struct HomeView: View {
     @EnvironmentObject var patientViewModel : PatientViewModel
     
     var body: some View {
-        VStack{
-            Text("This is Dashboard Home Page.")
+        ZStack{
+            VStack{
+                TabHeader(title: "Dashboard", isHome: true)
+            }
+            VStack{
+                
+            }
+            .commonPadding()
         }
         .commonLayout()
-        .commonPadding()
         .commonBackground()
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)

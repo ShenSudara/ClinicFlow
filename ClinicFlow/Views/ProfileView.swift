@@ -4,12 +4,16 @@ struct ProfileView: View {
     @EnvironmentObject var patientViewModel: PatientViewModel
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Text("This is Profile View")
-
+        ZStack{
+            VStack{
+                TabHeader(title: "Profile", isHome: true)
+            }
+            VStack{
+                
+            }
+            .commonPadding()
         }
         .commonLayout()
-        .commonPadding()
         .commonBackground()
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
