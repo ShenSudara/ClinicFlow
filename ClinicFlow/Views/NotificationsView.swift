@@ -1,0 +1,34 @@
+//
+//  NotificationsView.swift
+//  ClinicFlow
+//
+//  Created by COBSCCOMP242P-063 on 2026-03-11.
+//
+
+import SwiftUI
+
+struct NotificationsView: View {
+    
+    let todayNotifications = [
+        NotificationItem(title: "Your turn is next", description: "Please proceed to Room 302. Dr. Smith is ready to see you now.", timeAgo: "now", iconName: "bell", iconColor: .blue, isUnread: true),
+        NotificationItem(title: "Appointment Reminder", description: "You have an upcoming appointment with Dr. Chen on Oct 15 at 10:00 AM.", timeAgo: "2h ago", iconName: "calendar.badge.clock", iconColor: .orange, isUnread: true),
+        NotificationItem(title: "Payment Successful", description: "Your payment of Rs.25000.00 for today's visit processed successfully.", timeAgo: "3h ago", iconName: "wallet.pass", iconColor: .green, isUnread: true)
+    ]
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            MainHeader(title: "Notifications", profileImageName: "UserAvatar")
+            
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    NotificationSection(title: "TODAY", items: todayNotifications)
+                    
+                    // Add more sections for "YESTERDAY" as needed
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 20)
+            }
+        }
+        .commonBackground()
+    }
+}
