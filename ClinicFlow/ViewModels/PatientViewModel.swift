@@ -141,6 +141,7 @@ class PatientViewModel: ObservableObject {
     private func reset(){
         mobileNo = ""
         otpCode = ""
+        inputOTPCode = ""
         user = .unknown
         patient = Patient(mobileNo: "")
         isLoading = false
