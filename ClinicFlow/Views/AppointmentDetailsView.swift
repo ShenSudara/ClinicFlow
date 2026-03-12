@@ -7,38 +7,35 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct AppointmentDetailsView: View {
     @StateObject private var serviceVM = ServiceViewModel()
     @EnvironmentObject var patientViewModel: PatientViewModel
+
     var body: some View {
-            VStack(alignment: .leading, spacing: 12) {
-                TabHeader(title: "Appointment Details", isHome: false)
-                    .padding(.horizontal, 16)
-                    .padding(.top, 10)
+        VStack(alignment: .leading) {
+            AppHeader(title: "Appointment Details", showBackButton: true)
+                .padding(.bottom, 15)
 
-                // Wait Time Card inserted here
-                WaitTimeCardView(minutes: 15, onCancel: {
-                    
-                })
+            WaitTimeCardView(minutes: 15, onCancel: {
+            }).padding(.bottom, 15)
 
-                // Services section title
-                Text("Services")
-                    .font(.system(size: 18, weight: .bold))
-                    .headerColor()
-                    .padding(.horizontal, 16)
-                    .padding(.top, 8)
+            Text("Services")
+                .font(.system(size: 18, weight: .bold))
+                .headerColor()
 
-                // Services timeline
-                ServiceTimelineView(vm: serviceVM)
-                    .frame(maxWidth: .infinity)
+            ServiceTimelineView(vm: serviceVM)
+                .frame(maxWidth: .infinity)
 
-                Spacer()
-            }
-            .commonBackground()
-            .commonLayout()
+            Spacer()
         }
+        .commonPadding()
+        .commonBackground()
+        .commonLayout()
     }
+}
 
-    #Preview {
-        AppointmentDetailsView().environmentObject(PatientViewModel())
-    }
+#Preview {
+    AppointmentDetailsView().environmentObject(PatientViewModel())
+}
