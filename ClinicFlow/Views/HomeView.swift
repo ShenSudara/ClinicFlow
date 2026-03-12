@@ -29,5 +29,7 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView().environmentObject(PatientViewModel())
+    HomeView()
+        .environmentObject(PatientViewModel())
+        .environmentObject(HomeViewModel())
 }
