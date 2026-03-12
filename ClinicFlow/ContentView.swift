@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @StateObject private var patientViewModel = PatientViewModel()
     @StateObject private var appViewModel = AppViewModel()
+    @StateObject private var homeViewModel = HomeViewModel()
     
     var body: some View {
         switch appViewModel.appState {
@@ -21,6 +22,7 @@ struct ContentView: View {
             MainView()
                 .environmentObject(patientViewModel)
                 .environmentObject(appViewModel)
+                .environmentObject(homeViewModel)
         }
     }
 }

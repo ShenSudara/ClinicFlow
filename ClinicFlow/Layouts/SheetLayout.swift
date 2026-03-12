@@ -30,6 +30,7 @@ struct EditProfileFieldSheet: View {
                 
                 TextField(value, text: $value)
                     .foregroundColor(Color("SubHeader1"))
+                    .textInputAutocapitalization(.never)
                     .defaultTextField()
             }
             .contentShape(Rectangle())

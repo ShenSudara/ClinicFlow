@@ -37,6 +37,7 @@ struct SignInView: View {
                 }
                 HStack{
                     TextField("Mobile Number", text: $patientViewModel.mobileNo)
+                        .textInputAutocapitalization(.never)
                         .defaultTextField()
                         .padding(.bottom, 25)
                 }

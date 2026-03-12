@@ -36,6 +36,7 @@ struct VerificationView: View {
             }
             HStack{
                 TextField("OTP", text: $patientViewModel.inputOTPCode)
+                    .textInputAutocapitalization(.never)
                     .defaultTextField()
                     .padding(.bottom, 25)
             }
