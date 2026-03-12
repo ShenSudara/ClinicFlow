@@ -55,18 +55,30 @@ struct AppointmentRowView: View {
     }
     
     private func shortMonth(from date: Date) -> String {
-            let df = DateFormatter()
-            df.dateFormat = "MMM"
-            return df.string(from: date)
+        let df = DateFormatter()
+        df.dateFormat = "MMM"
+        return df.string(from: date)
+    }
+    private func dayString(from date: Date) -> String {
+        let df = DateFormatter()
+        df.dateFormat = "d"
+        return df.string(from: date)
+    }
+    private func timeString(from date: Date) -> String {
+        let df = DateFormatter()
+        df.dateFormat = "h:mm a"
+        return df.string(from: date)
+    }
+    
+    private func backgroundColor(for status: AppointmentStatus) -> Color {
+            switch status {
+            case .pending: return .orange
+            case .ongoing: return .green
+            case .completed: return .gray
+            }
         }
-        private func dayString(from date: Date) -> String {
-            let df = DateFormatter()
-            df.dateFormat = "d"
-            return df.string(from: date)
-        }
-        private func timeString(from date: Date) -> String {
-            let df = DateFormatter()
-            df.dateFormat = "h:mm a"
-            return df.string(from: date)
-        }
-        
+    }
+
+    #Preview {
+        AppointmentRowView(appointment: Appointment(doctorName: "Dr Test", clinicName: "General", date: Date().addingTimeInterval(3600), status: .pending, accent: .blue))
+    }
