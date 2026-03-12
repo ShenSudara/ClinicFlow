@@ -53,3 +53,20 @@ struct AppointmentRowView: View {
         .shadow(color: Color.black.opacity(0.04), radius: 6, x: 0, y: 3)
         .accessibilityElement(children: .combine)
     }
+    
+    private func shortMonth(from date: Date) -> String {
+            let df = DateFormatter()
+            df.dateFormat = "MMM"
+            return df.string(from: date)
+        }
+        private func dayString(from date: Date) -> String {
+            let df = DateFormatter()
+            df.dateFormat = "d"
+            return df.string(from: date)
+        }
+        private func timeString(from date: Date) -> String {
+            let df = DateFormatter()
+            df.dateFormat = "h:mm a"
+            return df.string(from: date)
+        }
+        
