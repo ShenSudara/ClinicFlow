@@ -1,17 +1,19 @@
+//
+//  ProfileView.swift
+//  ClinicFlow
+//
+//  Created by Ashen Sudaraka on 2026-03-12.
+//
+
 import SwiftUI
 
 struct ProfileView: View {
     @EnvironmentObject var patientViewModel: PatientViewModel
-    
+
     var body: some View {
-        ZStack{
-            VStack{
-                TabHeader(title: "Profile", isHome: true)
-            }
-            VStack{
-                
-            }
-            .commonPadding()
+        VStack(spacing: 0) {
+            TabHeader(title: "Profile", isHome: true)
+            SettingsScrollView().environmentObject(patientViewModel)
         }
         .commonLayout()
         .commonBackground()
@@ -21,5 +23,7 @@ struct ProfileView: View {
 }
 
 #Preview {
-    ProfileView().environmentObject(PatientViewModel())
+    ProfileView()
+        .environmentObject(PatientViewModel())
+        .environmentObject(AppViewModel())
 }
