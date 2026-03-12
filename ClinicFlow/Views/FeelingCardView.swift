@@ -30,3 +30,9 @@ struct FeelingCardGrid: View {
         }
     }
 }
+
+struct FeelingItem: View {
+    let label: String
+    let icon: String
+    let color: Color
+    let action: () -> Void
