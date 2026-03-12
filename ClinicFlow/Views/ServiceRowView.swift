@@ -13,7 +13,6 @@ struct ServiceRowView: View {
     
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
-            // Timeline + icon column
             VStack(alignment: .center, spacing: 0) {
                 Circle()
                     .fill(item.status.iconCircleColor)
@@ -31,68 +30,65 @@ struct ServiceRowView: View {
                             }
                         }
                     )
-                
-                // Vertical dashed line
-                                if !isLast {
-                                    Rectangle()
-                                        .fill(Color.blue.opacity(0.4))
-                                        .frame(width: 2)
-                                        .padding(.top, 6)
-                                        .overlay(
-                                            VStack { // create dashed effect using mask
-                                                ForEach(0..<20) { i in
-                                                    Rectangle()
-                                                        .fill(Color.blue.opacity(0.0))
-                                                        .frame(height: 6)
-                                                }
-                                            }
-                                        )
-                                        .opacity(0.6)
-                                        .frame(maxHeight: .infinity)
-                                } else {
-                                    Spacer().frame(height: 0)
-                                }
-                            }
-                            .frame(width: 40)
-
-                        // Card
-                        VStack(alignment: .leading, spacing: 6) {
-                            HStack {
-                                Text(item.serviceName)
-                                    .font(.system(size: 16, weight: .bold))
-                                Spacer()
-                                Text(item.status.rawValue.capitalized)
-                                    .font(.system(size: 12, weight: .bold))
-                                    .padding(.horizontal, 8)
-                                    .padding(.vertical, 4)
-                                    .background(item.status.borderColor.opacity(0.12))
-                                    .foregroundColor(item.status.borderColor)
-                                    .cornerRadius(10)
-                            }
-                            Text(item.room)
-                                .font(.system(size: 14))
-                                .foregroundColor(.secondary)
-                            HStack(spacing: 8) {
-                                Image(systemName: "clock")
-                                    .font(.system(size: 12))
-                                    .foregroundColor(.secondary)
-                                Text(item.time)
-                                    .font(.system(size: 13))
-                                    .foregroundColor(.secondary)
-                            }
-                        }
-                        .padding(12)
-                        .background(Color.white)
+                if !isLast {
+                    Rectangle()
+                        .fill(Color.blue.opacity(0.4))
+                        .frame(width: 2)
+                        .padding(.top, 6)
                         .overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(item.status.borderColor.opacity(0.3), lineWidth: 1)
-                        )
-                        .cornerRadius(8)
-                                    .shadow(color: Color.black.opacity(0.02), radius: 4, x: 0, y: 2)
+                            VStack {
+                                ForEach(0..<20) { i in
+                                    Rectangle()
+                                        .fill(Color.blue.opacity(0.0))
+                                        .frame(height: 6)
                                 }
-                                .padding(.vertical, 6)
                             }
-                        }
+                        )
+                        .opacity(0.6)
+                        .frame(maxHeight: .infinity)
+                } else {
+                    Spacer().frame(height: 0)
+                }
+            }
+            .frame(width: 40)
+
+            VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    Text(item.serviceName)
+                        .font(.system(size: 16, weight: .bold))
+                    Spacer()
+                    Text(item.status.rawValue.capitalized)
+                        .font(.system(size: 12, weight: .bold))
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(item.status.borderColor.opacity(0.12))
+                        .foregroundColor(item.status.borderColor)
+                        .cornerRadius(10)
+                }
+                Text(item.room)
+                    .font(.system(size: 14))
+                    .foregroundColor(.secondary)
+                HStack(spacing: 8) {
+                    Image(systemName: "clock")
+                        .font(.system(size: 12))
+                        .foregroundColor(.secondary)
+                    Text(item.time)
+                        .font(.system(size: 13))
+                        .foregroundColor(.secondary)
+                }
+            }
+            .padding(12)
+            .background(Color.white)
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(item.status.borderColor.opacity(0.3), lineWidth: 1)
+            )
+            .cornerRadius(8)
+            .shadow(color: Color.black.opacity(0.02), radius: 4, x: 0, y: 2)
+        }
+        .padding(.vertical, 6)
+    }
+}
 
 #Preview {
     VStack {

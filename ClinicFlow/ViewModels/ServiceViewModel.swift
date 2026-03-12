@@ -11,12 +11,12 @@ import Combine
 
 class ServiceViewModel: ObservableObject {
     @Published var services: [ServiceItem] = []
-    
+
     init() {
-        loadMockServices()
+        loadServices()
     }
-    
-    func loadMockServices() {
+
+    func loadServices() {
         services = [
             ServiceItem(serviceName: "Consultation", status: .completed, room: "Room 302", time: "8:30 AM", type: .doctor),
             ServiceItem(serviceName: "Blood Test", status: .ongoing, room: "Room 302", time: "8:40 AM", type: .syringe),
