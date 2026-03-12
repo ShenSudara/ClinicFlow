@@ -29,4 +29,32 @@ struct ClinicCardView: View {
                     )
             }
             
-            
+            Text(clinic.name)
+                            .font(.system(size: 16, weight: .bold))
+                        Text(clinic.doctor)
+                            .font(.system(size: 12))
+                            .subHeader2Color()
+                        Button(action: {}) {
+                            HStack {
+                                Image(systemName: "calendar")
+                                Text("View")
+                            }
+                            .font(.system(size: 12, weight: .bold))
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 8)
+                            .background(Color("NPrimaryColor"))
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                        }
+                    }
+                    .frame(width: 180)
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(12)
+                    .shadow(color: Color.black.opacity(0.04), radius: 6, x: 0, y: 3)
+                }
+            }
+
+            #Preview {
+                ClinicCardView(clinic: Clinic(name: "Cardiology Clinic", doctor: "Dr A", dateVisited: Date(), imageName: nil, accent: .purple))
+            }
