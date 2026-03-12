@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ServiceTimelineView: View {
     @ObservedObject var vm: ServiceViewModel
-    
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
@@ -21,7 +21,7 @@ struct ServiceTimelineView: View {
             }
             .padding(.vertical, 12)
         }
-        .background(Color("Background"))
+        .commonBackground()
     }
 }
 
