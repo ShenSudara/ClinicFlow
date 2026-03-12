@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-enum AppointmentStatus: String, CaseIterable, Identifiable {
+enum AppointmentModelStatus: String, CaseIterable, Identifiable {
     case pending
     case ongoing
     case completed
@@ -23,14 +23,14 @@ struct AppointmentModel: Identifiable {
     let specialty: String
     let date: Date
     let time: String
-    let status: AppointmentStatus
+    let status: AppointmentModelStatus
     
     init(id: String = UUID().uuidString,
          doctorName: String,
          specialty: String,
          date: Date,
          time: String,
-         status: AppointmentStatus) {
+         status: AppointmentModelStatus) {
         self.id = id
         self.doctorName = doctorName
         self.specialty = specialty
