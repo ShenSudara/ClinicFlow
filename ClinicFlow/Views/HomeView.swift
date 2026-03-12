@@ -2,13 +2,14 @@
 //  HomeView.swift
 //  ClinicFlow
 //
-//  Created by Ashen Sudaraka on 2026-03-01.
+//  Created by COBSCCOMP242P-063 on 2026-03-12.
 //
 
 import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var patientViewModel : PatientViewModel
+    @EnvironmentObject private var homeViewModel: HomeViewModel
     
     var body: some View {
         ZStack{
