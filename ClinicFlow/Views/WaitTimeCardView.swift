@@ -11,8 +11,7 @@ struct WaitTimeCardView: View {
     let minutes: Int
     var onCancel: (() -> Void)?
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            // Top pill
+        VStack(alignment: .leading, spacing: 12) {
             Text("Ongoing")
                 .font(.system(size: 12, weight: .semibold))
                 .foregroundColor(.white)
@@ -20,23 +19,22 @@ struct WaitTimeCardView: View {
                 .padding(.vertical, 6)
                 .background(Color.white.opacity(0.12))
                 .clipShape(Capsule())
-                .frame(maxWidth: .infinity, alignment: .center)
+                .frame(maxWidth: .infinity, alignment: .leading)
 
-            VStack(spacing: 4) {
-                            Text("\(minutes)")
-                                .font(.system(size: 64, weight: .bold))
-                                .foregroundColor(.white)
-                            
-                            Text("Minutes Wait")
-                                .font(.system(size: 18, weight: .medium))
-                                .foregroundColor(.white)
-                            
-                            Text("Estimated time until your Vitals check begins.")
-                                .font(.system(size: 13))
-                                .foregroundColor(.white.opacity(0.9))
-                                .multilineTextAlignment(.center)
-                        }
-                        .frame(maxWidth: .infinity)
+            HStack(alignment: .center, spacing: 12) {
+                Text("\(minutes)")
+                    .font(.system(size: 64, weight: .bold))
+                    .foregroundColor(.white)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Minutes Wait")
+                        .font(.system(size: 18, weight: .medium))
+                        .foregroundColor(.white)
+                    Text("Estimated time until your Vitals check begins.")
+                        .font(.system(size: 13))
+                        .foregroundColor(.white.opacity(0.9))
+                }
+                Spacer()
+            }
 
             HStack(spacing: 12) {
                 Button(action: {
@@ -44,7 +42,7 @@ struct WaitTimeCardView: View {
                 }) {
                     Text("Cancel Appointment")
                         .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(Color(#colorLiteral(red: 0.0, green: 0.404, blue: 1.0, alpha: 1.0)))
+                        .foregroundColor(Color("NPrimaryColor"))
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 12)
                         .background(Color.white)
@@ -53,6 +51,7 @@ struct WaitTimeCardView: View {
                 .buttonStyle(PlainButtonStyle())
 
                 Button(action: {
+                    
                 }) {
                     ZStack {
                         RoundedRectangle(cornerRadius: 8)
@@ -65,10 +64,10 @@ struct WaitTimeCardView: View {
                 .buttonStyle(PlainButtonStyle())
             }
         }
-        .padding(16)
-        .background(Color(#colorLiteral(red: 0.0, green: 0.4, blue: 1.0, alpha: 1.0)))
-        .cornerRadius(20)
-        .padding(.horizontal, 16) 
+        .padding(15)
+        .padding(.vertical, 10)
+        .background(Color("NPrimaryColor"))
+        .cornerRadius(15)
     }
 }
 
