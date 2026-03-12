@@ -94,4 +94,12 @@ struct ServiceRowView: View {
                             }
                         }
 
-
+#Preview {
+    VStack {
+        ServiceRowView(item: ServiceItem(serviceName: "Consultation", status: .completed, room: "Room 302", time: "8:30 AM", type: .doctor), isLast: false)
+        ServiceRowView(item: ServiceItem(serviceName: "Blood Test", status: .ongoing, room: "Room 302", time: "8:40 AM", type: .syringe), isLast: false)
+        ServiceRowView(item: ServiceItem(serviceName: "X-Ray", status: .pending, room: "Radiology", time: "9:15 AM", type: .scan), isLast: true)
+    }
+    .padding()
+    .background(Color("Background"))
+}
