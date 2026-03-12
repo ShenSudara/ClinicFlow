@@ -2,31 +2,33 @@
 //  HomeView.swift
 //  ClinicFlow
 //
-//  Created by Ashen Sudaraka on 2026-03-01.
+//  Created by COBSCCOMP242P-063 on 2026-03-12.
 //
 
 import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var patientViewModel : PatientViewModel
+    @EnvironmentObject private var homeViewModel: HomeViewModel
     
     var body: some View {
-        ZStack{
             VStack{
                 TabHeader(title: "Dashboard", isHome: true)
+                VStack{
+                    HomeScrollView(vm: homeViewModel)
+                }
+                .commonPadding()
             }
-            VStack{
-                
-            }
-            .commonPadding()
+            .commonLayout()
+            .commonBackground()
+            .navigationBarBackButtonHidden(true)
+            .navigationBarHidden(true)
         }
-        .commonLayout()
-        .commonBackground()
-        .navigationBarBackButtonHidden(true)
-        .navigationBarHidden(true)
     }
-}
+
 
 #Preview {
-    HomeView().environmentObject(PatientViewModel())
+    HomeView()
+        .environmentObject(PatientViewModel())
+        .environmentObject(HomeViewModel())
 }
