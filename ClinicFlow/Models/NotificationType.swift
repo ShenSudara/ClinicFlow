@@ -22,3 +22,12 @@ enum NotificationType: String {
         case .lab: return "testtube.2.fill"
         }
     }
+    
+    var backgroundColor: Color {
+           switch self {
+           case .turn: return Color.blue.opacity(0.12)
+           case .appointment: return Color.orange.opacity(0.12)
+           case .payment: return Color.green.opacity(0.12)
+           case .lab: return Color.purple.opacity(0.12)
+           }
+       }
