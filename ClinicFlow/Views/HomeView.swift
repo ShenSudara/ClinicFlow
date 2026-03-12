@@ -12,21 +12,20 @@ struct HomeView: View {
     @EnvironmentObject private var homeViewModel: HomeViewModel
     
     var body: some View {
-        ZStack{
             VStack{
                 TabHeader(title: "Dashboard", isHome: true)
+                VStack{
+                    HomeScrollView(vm: homeViewModel)
+                }
+                .commonPadding()
             }
-            VStack{
-                
-            }
-            .commonPadding()
+            .commonLayout()
+            .commonBackground()
+            .navigationBarBackButtonHidden(true)
+            .navigationBarHidden(true)
         }
-        .commonLayout()
-        .commonBackground()
-        .navigationBarBackButtonHidden(true)
-        .navigationBarHidden(true)
     }
-}
+
 
 #Preview {
     HomeView()
