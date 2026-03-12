@@ -61,8 +61,25 @@ class HomeViewModel: ObservableObject {
     }
     
     func selectFeeling(_ feeling: String) {
-            selectedFeeling = feeling
-            withAnimation {
-                showFeelingSection = false
-            }
+        selectedFeeling = feeling
+        withAnimation {
+            showFeelingSection = false
         }
+    }
+    
+    func nextAppointmentCountdown(for appointment: Appointment) -> Int {
+           let interval = Int(appointment.date.timeIntervalSince(Date()))
+           let minutes = max(0, interval / 60)
+           return minutes
+       }
+       
+       var nextAppointments: [Appointment] {
+           appointments.filter { Calendar.current.isDateInToday($0.date) }
+       }
+       
+       var upcomingAppointmentsLimited: [Appointment] {
+           Array(appointments.prefix(3))
+       }
+       
+       var allAppointments: [Appointment] { appointments }
+   }
