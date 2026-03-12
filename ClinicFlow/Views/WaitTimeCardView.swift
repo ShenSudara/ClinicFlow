@@ -74,6 +74,4 @@ struct WaitTimeCardView: View {
 
 #Preview {
     WaitTimeCardView(minutes: 15)
-        .previewLayout(.sizeThatFits)
-        .padding()
 }
