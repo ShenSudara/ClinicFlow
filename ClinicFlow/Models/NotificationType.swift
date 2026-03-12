@@ -24,10 +24,20 @@ enum NotificationType: String {
     }
     
     var backgroundColor: Color {
-           switch self {
-           case .turn: return Color.blue.opacity(0.12)
-           case .appointment: return Color.orange.opacity(0.12)
-           case .payment: return Color.green.opacity(0.12)
-           case .lab: return Color.purple.opacity(0.12)
-           }
-       }
+        switch self {
+        case .turn: return Color.blue.opacity(0.12)
+        case .appointment: return Color.orange.opacity(0.12)
+        case .payment: return Color.green.opacity(0.12)
+        case .lab: return Color.purple.opacity(0.12)
+        }
+    }
+    
+    var foregroundColor: Color {
+            switch self {
+            case .turn: return .blue
+            case .appointment: return .orange
+            case .payment: return .green
+            case .lab: return .purple
+            }
+        }
+    }
