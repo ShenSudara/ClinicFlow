@@ -40,6 +40,7 @@ struct ServiceDetailsCardView: View {
 
                 Spacer()
             }
+            
 
             Divider()
 
@@ -70,6 +71,29 @@ struct ServiceDetailsCardView: View {
                         .font(.system(size: 20))
                         .foregroundColor(.blue)
                 }
+            }
+            
+            Divider()
+            
+            HStack(spacing: 12) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color("NPrimaryColor").opacity(0.12))
+                        .frame(width: 44, height: 44)
+                    Image(systemName: "checklist")
+                        .foregroundColor(Color("NPrimaryColor"))
+                }
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Preparation Instruction")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                    Text("Follow the instructions")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                }
+
+                Spacer()
             }
         }
         .padding(16)

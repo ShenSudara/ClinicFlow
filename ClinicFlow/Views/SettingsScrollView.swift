@@ -16,11 +16,11 @@ struct SettingsScrollView: View {
             VStack(spacing: 30) {
                 HStack(alignment: .center) {
                     HStack(spacing: 12) {
-                        Image(systemName: "person.crop.circle.fill")
+                        Image("user2")
                             .resizable()
-                            .scaledToFit()
+                            .scaledToFill()
                             .frame(width: 50, height: 50)
-                            .foregroundColor(Color("NPrimaryColor"))
+                            .clipShape(RoundedRectangle(cornerRadius: 50))
                         VStack(alignment: .leading, spacing: 6) {
                             Text(patientViewModel.patient.name ?? "Patient Name")
                                 .font(.system(size: 18, weight: .semibold))

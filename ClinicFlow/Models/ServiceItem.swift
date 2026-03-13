@@ -13,6 +13,7 @@ enum ServiceType: String, Codable {
     case syringe
     case scan
     case pharmacy
+    case payment
     
     var iconName: String {
         switch self {
@@ -20,6 +21,7 @@ enum ServiceType: String, Codable {
         case .syringe: return "syringe"
         case .scan: return "xmark.shield"
         case .pharmacy: return "pills"
+        case .payment: return "creditcard"
         }
     }
 }

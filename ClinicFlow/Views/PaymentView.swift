@@ -10,12 +10,12 @@ import SwiftUI
 struct PaymentView: View {
     @StateObject private var vm = PaymentViewModel()
     @State private var navigateToCheckout = false
-    @EnvironmentObject private var appViewModel: AppViewModel
 
     var body: some View {
         VStack{
             VStack(spacing: 0) {
                 AppHeader(title: "Payment", showBackButton: true)
+
                 ScrollView {
                     VStack(spacing: 30) {
                         VStack(alignment: .leading, spacing: 8) {
@@ -49,9 +49,12 @@ struct PaymentView: View {
                                 RoundedRectangle(cornerRadius: 12)
                                     .fill(Color.gray.opacity(0.12))
                                     .frame(height: 160)
-                                Image(systemName: "map")
-                                    .font(.system(size: 40))
-                                    .foregroundColor(.gray)
+                                Image("map")
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(height: 160)
+                                    .clipped()
+                                    .cornerRadius(12)
                             }
 
                             HStack(spacing: 12) {
@@ -69,7 +72,7 @@ struct PaymentView: View {
                                     )
                                 }
 
-                                Button(action: {}) {
+                                NavigationLink(destination: IndoorNavView(serviceName: "Payment", roomNumber: "Billing Desk")) {
                                     HStack {
                                         Image(systemName: "location.fill.viewfinder")
                                         Text("Indoor Nav")
@@ -91,12 +94,15 @@ struct PaymentView: View {
                     }
                 }
                 .scrollIndicators(.hidden)
-            }.commonLayout()
+            }
+            .commonLayout()
             .commonPadding()
             .commonBackground()
             
             VStack {
-                Button(action: { navigateToCheckout = true }) {
+                Button(action: {
+                    navigateToCheckout = true
+                }) {
                     Text("Pay Now")
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -104,10 +110,11 @@ struct PaymentView: View {
                         .foregroundColor(.white)
                         .cornerRadius(12)
                 }
-                .navigationDestination(isPresented: $navigateToCheckout) {
-                    CheckoutView(vm: vm)
-                        .environmentObject(appViewModel)
-                }
+            }
+            .navigationDestination(isPresented: $navigateToCheckout) {
+                CheckoutView(vm: vm, onFinish: {
+                    navigateToCheckout = false
+                })
             }
             .commonPadding()
             .padding(.vertical, 15)
@@ -118,10 +125,8 @@ struct PaymentView: View {
     }
 }
 
-struct PaymentView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            PaymentView().environmentObject(AppViewModel())
-        }
+#Preview {
+    NavigationStack {
+        PaymentView()
     }
 }

@@ -44,7 +44,7 @@ struct ServiceDetailsView: View {
                             .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
                         }
                         VStack(spacing: 18) {
-                            Image(systemName: "qrcode")
+                            Image("qr")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 140, height: 140)
@@ -74,9 +74,13 @@ struct ServiceDetailsView: View {
                             RoundedRectangle(cornerRadius: 12)
                                 .fill(Color.gray.opacity(0.12))
                                 .frame(height: 160)
-                            Image(systemName: "map")
-                                .font(.system(size: 40))
-                                .foregroundColor(.gray)
+
+                            Image("map")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(height: 160)
+                                .clipped()
+                                .cornerRadius(12)
                         }
 
                         HStack(spacing: 12) {
@@ -117,7 +121,7 @@ struct ServiceDetailsView: View {
                     Spacer(minLength: 32)
                 }
                 .padding(.top, 8)
-            }
+            }.scrollIndicators(.hidden)
         }
         .commonLayout()
         .commonPadding()

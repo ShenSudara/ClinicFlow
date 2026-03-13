@@ -1,17 +1,10 @@
-//
-//  CheckoutView.swift
-//  ClinicFlow
-//
-//  Created by Ashen Sudaraka on 2026-03-13.
-//
-
 import SwiftUI
 
 struct CheckoutView: View {
     @ObservedObject var vm: PaymentViewModel
     @State private var showApplePaySheet = false
     @State private var showSuccess = false
-    @EnvironmentObject private var appViewModel: AppViewModel
+    var onFinish: (() -> Void)? = nil
 
     var body: some View {
         VStack{
@@ -91,7 +84,7 @@ struct CheckoutView: View {
             .fullScreenCover(isPresented: $showSuccess) {
                 PaymentSuccessView(date: vm.transactionDate, time: vm.transactionTime, reference: vm.referenceID, amount: vm.totalFormatted) {
                     showSuccess = false
-                    appViewModel.appState = .main
+                    onFinish?()
                 }
             }
         }
@@ -103,7 +96,7 @@ struct CheckoutView: View {
 struct CheckoutView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            CheckoutView(vm: PaymentViewModel())
+            CheckoutView(vm: PaymentViewModel(), onFinish: {})
         }
     }
 }
