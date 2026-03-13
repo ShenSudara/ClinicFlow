@@ -13,7 +13,7 @@ struct BookAppointmentView: View {
 
     var body: some View {
         VStack{
-            AppHeader(title: "Book Appointment", showBackButton: true)
+            AppHeader(title: "Book Appointment", showBackButton: true).commonPadding()
 
             VStack{
                 BookAppointmentScrollView(viewModel: viewModel)
@@ -22,7 +22,7 @@ struct BookAppointmentView: View {
             .commonPadding()
             
             VStack{
-                Button(action: { viewModel.confirmAppointment(); dismiss() }) {
+                Button(action: { viewModel.confirmAppointment() }) {
                     Text("Confirm Appointment")
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -43,7 +43,14 @@ struct BookAppointmentView: View {
         }
         .commonLayout()
         .commonBackground()
+        
         .navigationBarHidden(true)
+        .fullScreenCover(isPresented: $viewModel.bookingSuccess) {
+            BookAppointmentSuccessView(clinicName: viewModel.selectedClinic.isEmpty ? "" : viewModel.selectedClinic, date: viewModel.selectedDate, time: viewModel.selectedTimeSlot, tokenNumber: Int.random(in: 1...99)) {
+                viewModel.bookingSuccess = false
+                dismiss()
+            }
+        }
     }
 }
 
