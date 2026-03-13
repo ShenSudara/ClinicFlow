@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import Combine
 
+@MainActor
 class ServiceDetailsViewModel: ObservableObject {
     @Published var tokenNumber: Int = Int.random(in: 100...999)
     @Published var appointmentTime: String = {
@@ -15,4 +16,12 @@ class ServiceDetailsViewModel: ObservableObject {
     @Published var locationName: String = "Main Building - 3rd Floor"
 
     init() {}
+
+    init(service: ServiceItem) {
+        self.serviceName = service.serviceName
+        self.serviceLocation = service.room
+        self.doctorName = "Dr. " + service.serviceName
+        self.appointmentTime = service.time
+        self.locationName = "Clinic - " + service.room
+    }
 }

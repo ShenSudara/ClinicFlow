@@ -13,12 +13,11 @@ struct BookAppointmentView: View {
 
     var body: some View {
         VStack{
-            AppHeader(title: "Book Appointment", showBackButton: true).commonPadding()
+            AppHeader(title: "Book Appointment", showBackButton: true)
 
             VStack{
                 BookAppointmentScrollView(viewModel: viewModel)
             }
-            .commonPadding()
             .commonBackground()
             
             VStack{
@@ -33,17 +32,15 @@ struct BookAppointmentView: View {
                             RoundedRectangle(cornerRadius: 14)
                                 .stroke(Color("NPrimaryColor").opacity(0.1), lineWidth: 1)
                         )
-                        .padding(.bottom, 20)
                 }
                 .disabled(!viewModel.isConfirmEnabled)
             }
             .padding(.top, 15)
-            .padding(.bottom, 15)
-            .commonPadding()
-            .background(.white)
             .shadow(color: Color.black.opacity(0.01), radius: 2, x: 0, y: -4)
         }
         .commonLayout()
+        .commonPadding()
+        .commonBackground()
         .navigationBarHidden(true)
     }
 }

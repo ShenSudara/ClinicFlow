@@ -1,13 +1,22 @@
 import SwiftUI
 
 struct ServiceDetailsView: View {
-    @StateObject private var vm = ServiceDetailsViewModel()
+    @StateObject private var vm: ServiceDetailsViewModel
+
+    init(service: ServiceItem? = nil) {
+        if let service = service {
+            _vm = StateObject(wrappedValue: ServiceDetailsViewModel(service: service))
+        } else {
+            let sample = ServiceItem(serviceName: "Consultation", status: .completed, room: "Room 302", time: "8:30 AM", type: .doctor)
+            _vm = StateObject(wrappedValue: ServiceDetailsViewModel(service: sample))
+        }
+    }
 
     var body: some View {
         VStack{
-            AppHeader(title: "Service Details", showBackButton: true).commonPadding()
-            ScrollView{
-                VStack(spacing: 30) {
+            AppHeader(title: "Service Details", showBackButton: true)
+            ScrollView {
+                VStack(spacing: 16) {
                     VStack(spacing: 24) {
                         VStack{
                             HStack(alignment: .bottom, spacing: 4) {
@@ -51,11 +60,9 @@ struct ServiceDetailsView: View {
                     .background(Color.white)
                     .cornerRadius(16)
                     .shadow(color: Color.black.opacity(0.04), radius: 4, x: 0, y: 2)
-                    .commonPadding()
                     .padding(.top, 30)
 
                     ServiceDetailsCardView(serviceName: vm.serviceName, serviceLocation: vm.serviceLocation, doctorName: vm.doctorName)
-                        .padding(.horizontal, 16)
 
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Location")
@@ -77,7 +84,7 @@ struct ServiceDetailsView: View {
                                 HStack {
                                     Image(systemName: "arrow.triangle.turn.up.right.circle.fill")
                                     Text("Get Directions")
-                                        .font(.system(size: 16, weight: .bold))
+                                        .font(.system(size: 14, weight: .bold))
                                 }
                                 .frame(maxWidth: .infinity)
                                 .padding()
@@ -91,7 +98,7 @@ struct ServiceDetailsView: View {
                                 HStack {
                                     Image(systemName: "location.fill.viewfinder")
                                     Text("Indoor Nav")
-                                        .font(.system(size: 16, weight: .bold))
+                                        .font(.system(size: 14, weight: .bold))
                                 }
                                 .frame(maxWidth: .infinity)
                                 .padding()
@@ -106,21 +113,22 @@ struct ServiceDetailsView: View {
                     .background(Color.white)
                     .cornerRadius(16)
                     .shadow(color: Color.black.opacity(0.04), radius: 4, x: 0, y: 2)
-                    .padding(.horizontal, 16)
 
                     Spacer(minLength: 32)
                 }
+                .padding(.top, 8)
             }
-            .scrollIndicators(.hidden)
-            .commonPadding()
-            .commonLayout()
-            .commonBackground()
-            .navigationBarBackButtonHidden(true)
-            .navigationBarHidden(true)
         }
+        .commonLayout()
+        .commonPadding()
+        .commonBackground()
+        .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
     }
 }
 
 #Preview {
-    ServiceDetailsView()
+    NavigationStack {
+        ServiceDetailsView(service: ServiceItem(serviceName: "Consultation", status: .completed, room: "Room 302", time: "8:30 AM", type: .doctor))
+    }
 }

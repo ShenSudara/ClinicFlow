@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct AppointmentDetailsView: View {
     @StateObject private var serviceVM = ServiceViewModel()
     @EnvironmentObject var patientViewModel: PatientViewModel
@@ -33,9 +31,13 @@ struct AppointmentDetailsView: View {
         .commonPadding()
         .commonBackground()
         .commonLayout()
+        .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
     }
 }
 
 #Preview {
-    AppointmentDetailsView().environmentObject(PatientViewModel())
+    NavigationStack {
+        AppointmentDetailsView().environmentObject(PatientViewModel())
+    }
 }

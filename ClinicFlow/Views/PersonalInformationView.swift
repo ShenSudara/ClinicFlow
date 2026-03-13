@@ -13,7 +13,7 @@ struct PersonalInformationView: View {
 
     var body: some View {
         VStack {
-            AppHeader(title: "Update Profile", showBackButton: true).commonPadding()
+            AppHeader(title: "Update Profile", showBackButton: true)
             
             VStack(spacing: 20) {
                 Image(systemName: "person.crop.circle.fill")
@@ -60,11 +60,12 @@ struct PersonalInformationView: View {
                 }
                 Spacer()
             }.padding(.vertical, 15)
-            .commonPadding()
-            .commonLayout()
-            .commonBackground()
         }
+        .commonPadding()
+        .commonLayout()
+        .commonBackground()
         .navigationBarHidden(true)
+        .navigationBarBackButtonHidden()
     }
 }
 
