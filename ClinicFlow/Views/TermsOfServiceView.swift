@@ -11,7 +11,6 @@ struct TermsOfServiceView: View {
     var body: some View {
         VStack {
             AppHeader(title: "Terms of Service", showBackButton: true)
-                .commonPadding()
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
                     Text("Last updated: February 24, 2026")
@@ -41,11 +40,12 @@ struct TermsOfServiceView: View {
                     }
                 }.padding(.vertical, 30)
             }
-            .commonLayout()
-            .commonPadding()
-            .commonBackground()
         }
+        .commonLayout()
+        .commonPadding()
+        .commonBackground()
         .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
     }
 }
 

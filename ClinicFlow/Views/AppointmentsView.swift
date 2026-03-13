@@ -37,7 +37,10 @@ struct AppointmentsView: View {
                                                     .font(.system(size: 14, weight: .bold))
                                                     .foregroundColor(Color("SubHeader2"))
                                                 ForEach(vm.filteredUpcoming) { appt in
-                                                    AppointmentsCardView(appointment: appt)
+                                                    NavigationLink(destination: AppointmentDetailsView().environmentObject(patientViewModel)) {
+                                                        AppointmentsCardView(appointment: appt)
+                                                    }
+                                                    .buttonStyle(PlainButtonStyle())
                                                 }
                                             }
                                         } else if vm.selectedTab == .past {
@@ -45,14 +48,20 @@ struct AppointmentsView: View {
                                                 .font(.system(size: 14, weight: .bold))
                                                 .foregroundColor(Color("SubHeader2"))
                                             ForEach(vm.filteredPast) { appt in
-                                                AppointmentsCardView(appointment: appt)
+                                                NavigationLink(destination: AppointmentDetailsView().environmentObject(patientViewModel)) {
+                                                    AppointmentsCardView(appointment: appt)
+                                                }
+                                                .buttonStyle(PlainButtonStyle())
                                             }
                                         } else {
                                             Text("Cancelled")
                                                 .font(.system(size: 14, weight: .bold))
                                                 .foregroundColor(Color("SubHeader2"))
                                             ForEach(vm.filteredCancelled) { appt in
-                                                AppointmentsCardView(appointment: appt)
+                                                NavigationLink(destination: AppointmentDetailsView().environmentObject(patientViewModel)) {
+                                                    AppointmentsCardView(appointment: appt)
+                                                }
+                                                .buttonStyle(PlainButtonStyle())
                                             }
                                         }
                                     }
@@ -90,5 +99,7 @@ struct AppointmentsView: View {
            }
 
            #Preview {
-               AppointmentsView().environmentObject(PatientViewModel())
+               NavigationStack {
+                   AppointmentsView().environmentObject(PatientViewModel())
+               }
            }

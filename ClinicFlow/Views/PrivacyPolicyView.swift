@@ -10,7 +10,7 @@ import SwiftUI
 struct PrivacyPolicyView: View {
     var body: some View {
         VStack {
-            AppHeader(title: "Privacy Policy", showBackButton: true).commonPadding()
+            AppHeader(title: "Privacy Policy", showBackButton: true)
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
                     Text("Last updated: February 24, 2026")
@@ -39,10 +39,10 @@ struct PrivacyPolicyView: View {
                 .padding(.vertical, 30)
             }
             .scrollIndicators(.hidden)
-            .commonPadding()
-            .commonLayout()
-            .commonBackground()
         }
+        .commonPadding()
+        .commonLayout()
+        .commonBackground()
         .navigationBarHidden(true)
     }
 }

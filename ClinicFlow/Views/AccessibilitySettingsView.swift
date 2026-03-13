@@ -13,7 +13,7 @@ struct AccessibilitySettingsView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            AppHeader(title: "Accessibility", showBackButton: true).commonPadding()
+            AppHeader(title: "Accessibility", showBackButton: true)
             VStack(alignment: .leading){
                 VStack(spacing: 0) {
                     AccessibilityRow(icon: "bold", title: "Bold Text", binding: $vm.boldText)
@@ -31,12 +31,12 @@ struct AccessibilitySettingsView: View {
                 .padding(.vertical, 25)
                 Spacer()
             }
-            .commonLayout()
-            .commonPadding()
-            .commonBackground()
         }
-
+        .commonLayout()
+        .commonPadding()
+        .commonBackground()
         .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
     }
 
     private func AccessibilityRow(icon: String, title: String, binding: Binding<Bool>) -> some View {

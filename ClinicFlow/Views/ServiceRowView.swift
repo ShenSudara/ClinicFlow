@@ -10,8 +10,8 @@ import SwiftUI
 struct ServiceRowView: View {
     let item: ServiceItem
     var isLast: Bool = false
-    
-    var body: some View {
+
+    var rowContent: some View {
         HStack(alignment: .top, spacing: 12) {
             VStack(alignment: .center, spacing: 0) {
                 Circle()
@@ -88,13 +88,24 @@ struct ServiceRowView: View {
         }
         .padding(.vertical, 6)
     }
+
+    var body: some View {
+        if item.type == .pharmacy {
+            rowContent
+        } else {
+            NavigationLink(destination: ServiceDetailsView(service: item)) {
+                rowContent
+            }
+            .buttonStyle(PlainButtonStyle())
+        }
+    }
 }
 
 #Preview {
     VStack {
         ServiceRowView(item: ServiceItem(serviceName: "Consultation", status: .completed, room: "Room 302", time: "8:30 AM", type: .doctor), isLast: false)
         ServiceRowView(item: ServiceItem(serviceName: "Blood Test", status: .ongoing, room: "Room 302", time: "8:40 AM", type: .syringe), isLast: false)
-        ServiceRowView(item: ServiceItem(serviceName: "X-Ray", status: .pending, room: "Radiology", time: "9:15 AM", type: .scan), isLast: true)
+        ServiceRowView(item: ServiceItem(serviceName: "Pharmacy", status: .pending, room: "Pharmacy", time: "9:30 AM", type: .pharmacy), isLast: true)
     }
     .padding()
     .background(Color("Background"))
