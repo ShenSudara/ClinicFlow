@@ -22,24 +22,25 @@ struct BookAppointmentView: View {
             .commonPadding()
             
             VStack{
-                Button(action: { viewModel.confirmAppointment() }) {
-                    Text("Confirm Appointment")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(viewModel.isConfirmEnabled ? Color("NPrimaryColor") : Color("IconBackground"))
-                        .foregroundColor(viewModel.isConfirmEnabled ? .white : Color("SubHeader2"))
-                        .cornerRadius(12)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 14)
-                                .stroke(Color("NPrimaryColor").opacity(0.1), lineWidth: 1)
-                        )
+                Divider()
+                VStack{
+                    Button(action: { viewModel.confirmAppointment() }) {
+                        Text("Confirm Appointment")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(viewModel.isConfirmEnabled ? Color("NPrimaryColor") : Color("IconBackground"))
+                            .foregroundColor(viewModel.isConfirmEnabled ? .white : Color("SubHeader2"))
+                            .cornerRadius(12)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 14)
+                                    .stroke(Color("NPrimaryColor").opacity(0.1), lineWidth: 1)
+                            )
+                    }
+                    .commonPadding()
+                    .disabled(!viewModel.isConfirmEnabled)
                 }
-                .commonPadding()
-                .disabled(!viewModel.isConfirmEnabled)
-            }
-            .padding(.vertical, 15)
-            .shadow(color: Color.black.opacity(0.01), radius: 2, x: 0, y: -4)
-            .background(.white)
+                .padding(.vertical, 15)
+            }.background(.white)
         }
         .commonLayout()
         .commonBackground()

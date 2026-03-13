@@ -20,7 +20,7 @@ struct ServiceTimelineView: View {
                 }
             }
             .padding(.vertical, 12)
-        }
+        }.scrollIndicators(.hidden)
         .commonBackground()
     }
 }
