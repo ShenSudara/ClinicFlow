@@ -98,7 +98,7 @@ struct ServiceDetailsView: View {
                                 )
                             }
 
-                            Button(action: {}) {
+                            NavigationLink(destination: IndoorNavView(serviceName: vm.serviceName, roomNumber: vm.doctorName)) {
                                 HStack {
                                     Image(systemName: "location.fill.viewfinder")
                                     Text("Indoor Nav")
