@@ -36,8 +36,8 @@ class HomeViewModel: ObservableObject {
         ]
         
         clinics = [
-            Clinic(name: "Cardiology Clinic", doctor: "Dr. Naduni Perera", dateVisited: Date(), imageName: "ClinicImage", accent: .purple),
-            Clinic(name: "General Clinic", doctor: "Dr. Ashen Sudaraka", dateVisited: Date().addingTimeInterval(-86400 * 7), imageName: nil, accent: .green)
+            Clinic(name: "Cardiology Clinic", doctor: "Dr. Naduni Perera", dateVisited: Date(), imageName: "clinic1", accent: .purple),
+            Clinic(name: "General Clinic", doctor: "Dr. Ashen Sudaraka", dateVisited: Date().addingTimeInterval(-86400 * 7), imageName: "clinic3", accent: .green)
         ]
         
         var items: [Appointment] = []

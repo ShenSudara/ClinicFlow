@@ -90,8 +90,10 @@ struct ServiceRowView: View {
     }
 
     var body: some View {
-        if item.type == .pharmacy {
-            rowContent
+        if item.type == .payment {
+            NavigationLink(destination: PaymentView()){
+                rowContent
+            }
         } else {
             NavigationLink(destination: ServiceDetailsView(service: item)) {
                 rowContent

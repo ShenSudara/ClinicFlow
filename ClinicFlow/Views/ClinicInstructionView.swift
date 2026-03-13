@@ -91,6 +91,8 @@ struct ClinicInstructionView: View {
         .commonLayout()
         .commonPadding()
         .commonBackground()
+        .navigationBarBackButtonHidden(true)
+        .navigationBarHidden(true)
     }
 }
 

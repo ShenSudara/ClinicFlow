@@ -22,7 +22,7 @@ struct NextAppointmentCard: View {
                         .background(Color.white.opacity(0.18))
                         .cornerRadius(10)
                     HStack(spacing: 15) {
-                        Image(systemName: "person.crop.circle.fill")
+                        Image("user1")
                             .resizable()
                             .frame(width: 56, height: 56)
                             .foregroundColor(.white)

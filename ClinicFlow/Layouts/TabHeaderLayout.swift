@@ -16,11 +16,11 @@ struct TabHeader: View {
                 Button(action: {
                     showProfileSheet = true
                 }) {
-                    Image(systemName: "person.crop.circle")
+                    Image("user1")
                         .resizable()
-                        .scaledToFit()
+                        .scaledToFill()
                         .frame(width: 28, height: 28)
-                        .foregroundColor(Color("NPrimaryColor"))
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
             }
             .commonPadding()
@@ -65,14 +65,16 @@ struct ProfileSwitchSheet: View {
                                 dismiss()
                             }) {
                                 HStack(spacing: 12) {
-                                    Image(systemName: "person.crop.circle.fill")
+                                    Image("user2")
                                         .resizable()
-                                        .scaledToFit()
+                                        .scaledToFill()
                                         .frame(width: 44, height: 44)
-                                        .foregroundColor(.blue)
-                                        .padding(6)
-                                        .background(Color("IconBackground"))
                                         .clipShape(Circle())
+                                        .padding(6)
+                                        .background(
+                                            Circle()
+                                                .fill(Color("IconBackground"))
+                                        )
                                     VStack(alignment: .leading) {
                                         Text((p.name?.isEmpty == false ? p.name : p.mobileNo) ?? "")
                                             .font(.headline)

@@ -38,6 +38,8 @@ struct AppointmentDetailsView: View {
 
 #Preview {
     NavigationStack {
-        AppointmentDetailsView().environmentObject(PatientViewModel())
+        AppointmentDetailsView()
+            .environmentObject(PatientViewModel())
+            .environmentObject(AppViewModel())
     }
 }

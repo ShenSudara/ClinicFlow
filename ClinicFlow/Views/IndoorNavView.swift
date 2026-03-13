@@ -94,6 +94,8 @@ struct IndoorNavView: View {
         .commonLayout()
         .commonPadding()
         .commonBackground()
+        .navigationBarBackButtonHidden(true)
+        .navigationBarHidden(true)
     }
 }
 

@@ -16,6 +16,7 @@ struct PaymentView: View {
         VStack{
             VStack(spacing: 0) {
                 AppHeader(title: "Payment", showBackButton: true)
+
                 ScrollView {
                     VStack(spacing: 30) {
                         VStack(alignment: .leading, spacing: 8) {
@@ -49,7 +50,7 @@ struct PaymentView: View {
                                 RoundedRectangle(cornerRadius: 12)
                                     .fill(Color.gray.opacity(0.12))
                                     .frame(height: 160)
-                                Image(systemName: "map")
+                                Image("map")
                                     .font(.system(size: 40))
                                     .foregroundColor(.gray)
                             }
@@ -69,7 +70,7 @@ struct PaymentView: View {
                                     )
                                 }
 
-                                Button(action: {}) {
+                                NavigationLink(destination: IndoorNavView(serviceName: "Payment", roomNumber: "Billing Desk")) {
                                     HStack {
                                         Image(systemName: "location.fill.viewfinder")
                                         Text("Indoor Nav")
@@ -125,3 +126,4 @@ struct PaymentView_Previews: PreviewProvider {
         }
     }
 }
+
