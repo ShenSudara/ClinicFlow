@@ -60,5 +60,6 @@ struct AppHeader: View {
             }
         }
         .padding(.top, 10)
+        .padding(.bottom, 5)
     }
 }
