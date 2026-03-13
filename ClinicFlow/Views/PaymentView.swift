@@ -10,7 +10,6 @@ import SwiftUI
 struct PaymentView: View {
     @StateObject private var vm = PaymentViewModel()
     @State private var navigateToCheckout = false
-    @EnvironmentObject private var appViewModel: AppViewModel
 
     var body: some View {
         VStack{
@@ -51,8 +50,11 @@ struct PaymentView: View {
                                     .fill(Color.gray.opacity(0.12))
                                     .frame(height: 160)
                                 Image("map")
-                                    .font(.system(size: 40))
-                                    .foregroundColor(.gray)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(height: 160)
+                                    .clipped()
+                                    .cornerRadius(12)
                             }
 
                             HStack(spacing: 12) {
@@ -92,12 +94,15 @@ struct PaymentView: View {
                     }
                 }
                 .scrollIndicators(.hidden)
-            }.commonLayout()
+            }
+            .commonLayout()
             .commonPadding()
             .commonBackground()
             
             VStack {
-                Button(action: { navigateToCheckout = true }) {
+                Button(action: {
+                    navigateToCheckout = true
+                }) {
                     Text("Pay Now")
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -105,10 +110,11 @@ struct PaymentView: View {
                         .foregroundColor(.white)
                         .cornerRadius(12)
                 }
-                .navigationDestination(isPresented: $navigateToCheckout) {
-                    CheckoutView(vm: vm)
-                        .environmentObject(appViewModel)
-                }
+            }
+            .navigationDestination(isPresented: $navigateToCheckout) {
+                CheckoutView(vm: vm, onFinish: {
+                    navigateToCheckout = false
+                })
             }
             .commonPadding()
             .padding(.vertical, 15)
@@ -119,11 +125,8 @@ struct PaymentView: View {
     }
 }
 
-struct PaymentView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            PaymentView().environmentObject(AppViewModel())
-        }
+#Preview {
+    NavigationStack {
+        PaymentView()
     }
 }
-

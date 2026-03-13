@@ -37,9 +37,9 @@ struct ServiceRowView: View {
                         .padding(.top, 6)
                         .overlay(
                             VStack {
-                                ForEach(0..<20) { i in
+                                ForEach(0..<20) { _ in
                                     Rectangle()
-                                        .fill(Color.blue.opacity(0.0))
+                                        .fill(Color.clear)
                                         .frame(height: 6)
                                 }
                             }
@@ -56,6 +56,7 @@ struct ServiceRowView: View {
                 HStack {
                     Text(item.serviceName)
                         .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(.primary)
                     Spacer()
                     Text(item.status.rawValue.capitalized)
                         .font(.system(size: 12, weight: .bold))
@@ -90,10 +91,11 @@ struct ServiceRowView: View {
     }
 
     var body: some View {
-        if item.type == .payment {
-            NavigationLink(destination: PaymentView()){
+        if item.type == .payment || item.type == .pharmacy {
+            NavigationLink(destination: PaymentView().environmentObject(AppViewModel())) {
                 rowContent
             }
+            .buttonStyle(PlainButtonStyle())
         } else {
             NavigationLink(destination: ServiceDetailsView(service: item)) {
                 rowContent
@@ -104,11 +106,12 @@ struct ServiceRowView: View {
 }
 
 #Preview {
-    VStack {
-        ServiceRowView(item: ServiceItem(serviceName: "Consultation", status: .completed, room: "Room 302", time: "8:30 AM", type: .doctor), isLast: false)
-        ServiceRowView(item: ServiceItem(serviceName: "Blood Test", status: .ongoing, room: "Room 302", time: "8:40 AM", type: .syringe), isLast: false)
-        ServiceRowView(item: ServiceItem(serviceName: "Pharmacy", status: .pending, room: "Pharmacy", time: "9:30 AM", type: .pharmacy), isLast: true)
+    VStack(spacing: 12) {
+        ServiceRowView(item: ServiceItem(serviceName: "Consultation", status: .completed, room: "Room 302", time: "8:30 AM", type: .doctor))
+        ServiceRowView(item: ServiceItem(serviceName: "Blood Test", status: .ongoing, room: "Room 302", time: "8:40 AM", type: .syringe))
+        ServiceRowView(item: ServiceItem(serviceName: "Pharmacy", status: .pending, room: "Pharmacy", time: "9:30 AM", type: .payment))
     }
     .padding()
     .background(Color("Background"))
+    .environmentObject(AppViewModel())
 }

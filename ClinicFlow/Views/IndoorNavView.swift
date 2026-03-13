@@ -2,6 +2,7 @@ import SwiftUI
 
 struct IndoorNavView: View {
     @StateObject private var vm: IndoorNavViewModel
+    @Environment(\.dismiss) private var dismiss
 
     init(serviceName: String, roomNumber: String) {
         _vm = StateObject(wrappedValue: IndoorNavViewModel(serviceName: serviceName, roomNumber: roomNumber))
@@ -9,7 +10,7 @@ struct IndoorNavView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            AppHeader(title: "Indoor Navigation", showBackButton: true)
+            AppHeader(title: "Indoor Navigation", showBackButton: true, backAction:{ dismiss()})
             
             VStack(alignment: .leading, spacing: 12) {
                 Text(vm.serviceName)
@@ -37,7 +38,7 @@ struct IndoorNavView: View {
                 HStack(spacing: 12) {
                     if vm.isFirstStep {
                         Button(action: {
-                            
+                            dismiss()
                         }) {
                             Text("Exit")
                                 .frame(maxWidth: .infinity)
@@ -62,7 +63,7 @@ struct IndoorNavView: View {
                                 .cornerRadius(10)
                         }
                         Button(action: {
-                            
+                            dismiss()
                         }) {
                             Text("Finish")
                                 .frame(maxWidth: .infinity)
