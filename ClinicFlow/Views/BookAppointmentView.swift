@@ -19,6 +19,7 @@ struct BookAppointmentView: View {
                 BookAppointmentScrollView(viewModel: viewModel)
             }
             .commonBackground()
+            .commonPadding()
             
             VStack{
                 Button(action: { viewModel.confirmAppointment(); dismiss() }) {
@@ -33,13 +34,14 @@ struct BookAppointmentView: View {
                                 .stroke(Color("NPrimaryColor").opacity(0.1), lineWidth: 1)
                         )
                 }
+                .commonPadding()
                 .disabled(!viewModel.isConfirmEnabled)
             }
-            .padding(.top, 15)
+            .padding(.vertical, 15)
             .shadow(color: Color.black.opacity(0.01), radius: 2, x: 0, y: -4)
+            .background(.white)
         }
         .commonLayout()
-        .commonPadding()
         .commonBackground()
         .navigationBarHidden(true)
     }
