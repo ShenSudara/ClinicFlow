@@ -3,6 +3,7 @@ import SwiftUI
 struct AppointmentsView: View {
     @StateObject private var vm = AppointmentsViewModel()
     @EnvironmentObject var patientViewModel: PatientViewModel
+    @State private var showingBook = false
 
     var body: some View {
         VStack {
@@ -61,8 +62,10 @@ struct AppointmentsView: View {
                                 .cornerRadius(12)
                                 Spacer()
                             }.commonPadding()
-                VStack(alignment: .trailing) {
-                            NavigationLink(destination: BookAppointmentView()) {
+                    VStack(alignment: .trailing) {
+                            Button {
+                                showingBook = true
+                            } label: {
                                 ZStack {
                                     Circle()
                                         .fill(Color("NPrimaryColor"))
@@ -74,6 +77,9 @@ struct AppointmentsView: View {
                             }
                             .padding()
                             .padding(.trailing, 16)
+                            .fullScreenCover(isPresented: $showingBook) {
+                                BookAppointmentView()
+                            }
                        }.frame(maxWidth: .infinity, alignment: .bottomTrailing)
                    }
                    .commonLayout()

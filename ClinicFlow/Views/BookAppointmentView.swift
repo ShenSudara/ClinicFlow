@@ -22,7 +22,7 @@ struct BookAppointmentView: View {
             .commonBackground()
             
             VStack{
-                Button(action: { viewModel.confirmAppointment() }) {
+                Button(action: { viewModel.confirmAppointment(); dismiss() }) {
                     Text("Confirm Appointment")
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -41,7 +41,7 @@ struct BookAppointmentView: View {
             .padding(.bottom, 15)
             .commonPadding()
             .background(.white)
-            .shadow(color: Color.black.opacity(0.06), radius: 8, x: 0, y: -4)
+            .shadow(color: Color.black.opacity(0.01), radius: 2, x: 0, y: -4)
         }
         .commonLayout()
         .navigationBarHidden(true)
