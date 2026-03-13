@@ -3,6 +3,7 @@ import SwiftUI
 struct AppointmentsView: View {
     @StateObject private var vm = AppointmentsViewModel()
     @EnvironmentObject var patientViewModel: PatientViewModel
+    @State private var showingBook = false
 
     var body: some View {
         VStack {
@@ -61,20 +62,24 @@ struct AppointmentsView: View {
                                 .cornerRadius(12)
                                 Spacer()
                             }.commonPadding()
-            VStack(alignment: .trailing) {
-                           Button(action: {
-                           }) {
-                               ZStack {
-                                   Circle()
-                                       .fill(Color.blue)
-                                       .frame(width: 56, height: 56)
-                                   Image(systemName: "plus")
-                                       .foregroundColor(.white)
-                                       .font(.system(size: 24, weight: .bold))
-                               }
-                           }
-                           .padding()
-                           .padding(.trailing, 16)
+                    VStack(alignment: .trailing) {
+                            Button {
+                                showingBook = true
+                            } label: {
+                                ZStack {
+                                    Circle()
+                                        .fill(Color("NPrimaryColor"))
+                                        .frame(width: 56, height: 56)
+                                    Image(systemName: "plus")
+                                        .foregroundColor(.white)
+                                        .font(.system(size: 24, weight: .bold))
+                                }
+                            }
+                            .padding()
+                            .padding(.trailing, 16)
+                            .fullScreenCover(isPresented: $showingBook) {
+                                BookAppointmentView()
+                            }
                        }.frame(maxWidth: .infinity, alignment: .bottomTrailing)
                    }
                    .commonLayout()
