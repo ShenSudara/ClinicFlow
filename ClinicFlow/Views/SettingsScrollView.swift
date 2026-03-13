@@ -233,7 +233,21 @@ struct SettingsScrollView: View {
                         }
                         .cornerRadius(12)
                     }
+                    
+                    
                 }
+                Button(action: {
+                    appViewModel.appState = .auth
+                }) {
+                    Text("Sign Out")
+                        .font(.system(size: 16, weight: .bold))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical)
+                        .foregroundColor(.red)
+                        .background(Color.white)
+                        .cornerRadius(12)
+                }
+                .padding(.top, 8)
             }
             .padding(.vertical, 30)
             .commonPadding()

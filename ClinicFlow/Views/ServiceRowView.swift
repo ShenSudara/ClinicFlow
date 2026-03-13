@@ -10,6 +10,7 @@ import SwiftUI
 struct ServiceRowView: View {
     let item: ServiceItem
     var isLast: Bool = false
+    var onSelect: ((ServiceItem) -> Void)? = nil
 
     var rowContent: some View {
         HStack(alignment: .top, spacing: 12) {
@@ -91,27 +92,31 @@ struct ServiceRowView: View {
     }
 
     var body: some View {
-        if item.type == .payment || item.type == .pharmacy {
-            NavigationLink(destination: PaymentView().environmentObject(AppViewModel())) {
+        if let onSelect = onSelect {
+            Button(action: { onSelect(item) }) {
                 rowContent
             }
             .buttonStyle(PlainButtonStyle())
         } else {
-            NavigationLink(destination: ServiceDetailsView(service: item)) {
-                rowContent
+            if item.type == .payment || item.type == .pharmacy {
+                NavigationLink(destination: PaymentView().environmentObject(AppViewModel())) {
+                    rowContent
+                }
+                .buttonStyle(PlainButtonStyle())
+            } else {
+                NavigationLink(destination: ServiceDetailsView(service: item)) {
+                    rowContent
+                }
+                .buttonStyle(PlainButtonStyle())
             }
-            .buttonStyle(PlainButtonStyle())
         }
     }
 }
 
 #Preview {
-    VStack(spacing: 12) {
-        ServiceRowView(item: ServiceItem(serviceName: "Consultation", status: .completed, room: "Room 302", time: "8:30 AM", type: .doctor))
-        ServiceRowView(item: ServiceItem(serviceName: "Blood Test", status: .ongoing, room: "Room 302", time: "8:40 AM", type: .syringe))
-        ServiceRowView(item: ServiceItem(serviceName: "Pharmacy", status: .pending, room: "Pharmacy", time: "9:30 AM", type: .payment))
+    VStack {
+        ServiceRowView(item: ServiceItem(serviceName: "Consultation", status: .completed, room: "Room 302", time: "8:30 AM", type: .doctor), isLast: false)
+        ServiceRowView(item: ServiceItem(serviceName: "Blood Test", status: .ongoing, room: "Room 302", time: "8:40 AM", type: .syringe), isLast: false)
+        ServiceRowView(item: ServiceItem(serviceName: "Pharmacy", status: .pending, room: "Pharmacy", time: "9:30 AM", type: .pharmacy), isLast: true)
     }
-    .padding()
-    .background(Color("Background"))
-    .environmentObject(AppViewModel())
 }

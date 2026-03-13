@@ -1,4 +1,3 @@
-
 //
 //  BookAppointmentViewModel.swift
 //  ClinicFlow
@@ -21,6 +20,7 @@ class BookAppointmentViewModel: ObservableObject {
     @Published var selectedClinic: String = ""
     @Published var selectedDate: Date = Date()
     @Published var selectedTimeSlot: String = ""
+    @Published var bookingSuccess: Bool = false
 
     let clinics: [ClinicModel] = [
         ClinicModel(id: "c1", name: "City Health Clinic", address: "123 Main St"),
@@ -67,5 +67,9 @@ class BookAppointmentViewModel: ObservableObject {
     }
 
     func confirmAppointment() {
+        // simulate booking confirmation
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.bookingSuccess = true
+        }
     }
 }

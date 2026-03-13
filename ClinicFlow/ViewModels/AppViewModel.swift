@@ -11,4 +11,6 @@ import Combine
 @MainActor
 class AppViewModel: ObservableObject {
     @Published var appState: AppState = .auth
+    @Published var selectedTab: Int = 0
+    @Published var selectedAppointmentID: String? = nil
 }

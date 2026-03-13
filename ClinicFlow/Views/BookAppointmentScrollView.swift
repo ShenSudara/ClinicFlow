@@ -25,7 +25,7 @@ struct BookAppointmentScrollView: View {
                                     viewModel.selectedClinic = clinic.id
                                 }) {
                                     VStack(alignment: .leading, spacing: 10) {
-                                        Image("ClinicImage")
+                                        Image(["clinic1", "clinic2", "clinic3"].randomElement()!)
                                             .resizable()
                                             .scaledToFill()
                                             .frame(height: 90)

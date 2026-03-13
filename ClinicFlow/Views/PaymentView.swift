@@ -92,6 +92,7 @@ struct PaymentView: View {
                         .cornerRadius(16)
                         .shadow(color: Color.black.opacity(0.04), radius: 4, x: 0, y: 2)
                     }
+                    .padding(.bottom, 30)
                 }
                 .scrollIndicators(.hidden)
             }
@@ -99,6 +100,7 @@ struct PaymentView: View {
             .commonPadding()
             .commonBackground()
             
+            Divider()
             VStack {
                 Button(action: {
                     navigateToCheckout = true

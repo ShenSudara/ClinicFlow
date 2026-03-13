@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-enum ServiceType: String, Codable {
+enum ServiceType: String, Codable, Hashable {
     case doctor
     case syringe
     case scan
@@ -26,7 +26,7 @@ enum ServiceType: String, Codable {
     }
 }
 
-enum ServiceStatus: String, Codable {
+enum ServiceStatus: String, Codable, Hashable {
     case completed
     case ongoing
     case pending
@@ -47,7 +47,7 @@ enum ServiceStatus: String, Codable {
     }
 }
 
-struct ServiceItem: Identifiable, Codable {
+struct ServiceItem: Identifiable, Codable, Hashable {
     let id: String
     let serviceName: String
     let status: ServiceStatus
