@@ -8,14 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var patientViewModel = PatientViewModel()
+    @StateObject private var appViewModel = AppViewModel()
+    @StateObject private var homeViewModel = HomeViewModel()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        switch appViewModel.appState {
+        case .auth:
+            AuthView()
+                .environmentObject(patientViewModel)
+                .environmentObject(appViewModel)
+        case .main:
+            MainView()
+                .environmentObject(patientViewModel)
+                .environmentObject(appViewModel)
+                .environmentObject(homeViewModel)
         }
-        .padding()
     }
 }
 
