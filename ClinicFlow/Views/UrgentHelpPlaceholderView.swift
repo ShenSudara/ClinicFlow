@@ -71,7 +71,7 @@ struct UrgentHelpPlaceholderView: View {
                 .accessibilityAddTraits(.isButton)
 
                 Button(action: {
-                    appViewModel.appState = .main
+                    dismiss()
                 }) {
                     Text("Return to Home")
                         .foregroundColor(.primary)
