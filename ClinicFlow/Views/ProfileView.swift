@@ -9,11 +9,12 @@ import SwiftUI
 
 struct ProfileView: View {
     @EnvironmentObject var patientViewModel: PatientViewModel
+    @EnvironmentObject var appViewModel: AppViewModel
 
     var body: some View {
         VStack(spacing: 0) {
             TabHeader(title: "Profile", isHome: true)
-            SettingsScrollView().environmentObject(patientViewModel)
+            SettingsScrollView()
         }
         .commonLayout()
         .commonBackground()

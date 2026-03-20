@@ -237,6 +237,7 @@ struct SettingsScrollView: View {
                     
                 }
                 Button(action: {
+                    patientViewModel.signOut()
                     appViewModel.appState = .auth
                 }) {
                     Text("Sign Out")
